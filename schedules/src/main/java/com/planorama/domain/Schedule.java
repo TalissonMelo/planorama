@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
+import java.time.OffsetTime;
 
 @Data
 @AllArgsConstructor
@@ -15,7 +15,7 @@ public class Schedule {
 
     private String name;
 
-    private Timestamp startTime;
+    private OffsetTime startTime;
 
-    private Timestamp endTime;
+    private OffsetTime endTime;
 }

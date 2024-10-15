@@ -4,6 +4,8 @@ import com.planorama.domain.Schedule;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.time.OffsetTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -15,8 +17,8 @@ public class GetSchedule {
         List<Schedule> schedules = new ArrayList<>();
 
         for (int i = 0; i < 5; i++) {
-            Timestamp startTime = new Timestamp(System.currentTimeMillis() + (i * 3600000));
-            Timestamp endTime = new Timestamp(startTime.getTime() + 3600000);
+            OffsetTime startTime = OffsetTime.of(9 + i, 30, 0, 0, ZoneOffset.of("-03:00"));
+            OffsetTime endTime = startTime.plusHours(2 + i);
 
             Schedule schedule = new Schedule(UUID.randomUUID().toString(),
                     "Melo",
