@@ -19,7 +19,7 @@ Resources:
         ProxyResource:
           Type: Api
           Properties:
-            Path: /{proxy+}
+            Path: /schedules/{proxy+}
             Method: any
 
 Outputs:

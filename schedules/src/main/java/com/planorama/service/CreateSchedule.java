@@ -13,6 +13,7 @@ public class CreateSchedule {
 
         return new Schedule(UUID.randomUUID().toString(),
                 scheduleRequest.name(),
+                scheduleRequest.userId(),
                 scheduleRequest.startTime(),
                 scheduleRequest.endTime());
     }

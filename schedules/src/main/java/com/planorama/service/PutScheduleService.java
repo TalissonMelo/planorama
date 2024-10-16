@@ -13,6 +13,7 @@ public class PutScheduleService {
 
         return new Schedule(scheduleId,
                 request.name(),
+                request.userId(),
                 request.startTime(),
                 request.endTime());
     }

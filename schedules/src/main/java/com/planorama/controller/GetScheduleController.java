@@ -16,7 +16,7 @@ public class GetScheduleController {
 
     private final GetSchedule service;
 
-    @GetMapping("/v1/schedules")
+    @GetMapping("/schedules")
     @CrossOrigin(origins = "*")
     public ResponseEntity<List<Schedule>> execute() {
 

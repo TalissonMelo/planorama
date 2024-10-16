@@ -15,7 +15,7 @@ public class DeleteLegendController {
 
     private final DeleteLegendService service;
 
-    @DeleteMapping("/v1/captions/{captionId}")
+    @DeleteMapping("/captions/{captionId}")
     @CrossOrigin(origins = "*")
     public ResponseEntity<Void> execute(@PathVariable String captionId) {
 

@@ -15,6 +15,8 @@ public class Schedule {
 
     private String name;
 
+    private String userId;
+
     private OffsetTime startTime;
 
     private OffsetTime endTime;

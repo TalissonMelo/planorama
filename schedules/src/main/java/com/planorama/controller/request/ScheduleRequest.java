@@ -5,5 +5,5 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.OffsetTime;
 
-public record ScheduleRequest(@NotBlank String name, @NotNull OffsetTime startTime, @NotNull OffsetTime endTime) {
+public record ScheduleRequest(@NotBlank String userId, @NotBlank String name, @NotNull OffsetTime startTime, @NotNull OffsetTime endTime) {
 }

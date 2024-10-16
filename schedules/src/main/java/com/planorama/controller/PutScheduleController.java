@@ -17,7 +17,7 @@ public class PutScheduleController {
 
     private final PutScheduleService service;
 
-    @PutMapping("/v1/schedules/{scheduleId}")
+    @PutMapping("/schedules/{scheduleId}")
     public ResponseEntity<Schedule> execute(@PathVariable String scheduleId,
                                             @Valid @RequestBody ScheduleRequest request) {
 

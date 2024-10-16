@@ -22,6 +22,7 @@ public class GetSchedule {
 
             Schedule schedule = new Schedule(UUID.randomUUID().toString(),
                     "Melo",
+                    UUID.randomUUID().toString(),
                     startTime,
                     endTime);
 
