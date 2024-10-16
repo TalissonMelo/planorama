@@ -19,7 +19,7 @@ Resources:
         ProxyResource:
           Type: Api
           Properties:
-            Path: /captions/{proxy+}
+            Path: /captions{proxy+}
             Method: any
 
 Outputs:
