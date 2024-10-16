@@ -18,7 +18,7 @@ public class GetLegendUserController {
 
     private final GetLegendUserService service;
 
-    @GetMapping("/v1/users/{userId}/legends")
+    @GetMapping("/captions/users/{userId}")
     @CrossOrigin(origins = "*")
     public ResponseEntity<List<Legend>> execute(@PathVariable String userId) {
 

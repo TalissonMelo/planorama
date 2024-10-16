@@ -17,7 +17,7 @@ public class PostLegendController {
 
     private final PostLegendService service;
 
-    @PostMapping("/v1/legends")
+    @PostMapping("/captions")
     @CrossOrigin(origins = "*")
     public ResponseEntity<Legend> execute(@Valid @RequestBody LegendRequest request) {
 

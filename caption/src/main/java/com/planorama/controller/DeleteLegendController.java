@@ -15,11 +15,11 @@ public class DeleteLegendController {
 
     private final DeleteLegendService service;
 
-    @DeleteMapping("/v1/legends/{legendId}")
+    @DeleteMapping("/v1/captions/{captionId}")
     @CrossOrigin(origins = "*")
-    public ResponseEntity<Void> execute(@PathVariable String legendId) {
+    public ResponseEntity<Void> execute(@PathVariable String captionId) {
 
-        service.execute(legendId);
+        service.execute(captionId);
 
         return ResponseEntity.noContent().build();
 

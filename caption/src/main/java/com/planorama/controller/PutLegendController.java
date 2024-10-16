@@ -14,12 +14,12 @@ public class PutLegendController {
 
     private final PutLegendService service;
 
-    @PutMapping("/v1/legends/{legendId}")
+    @PutMapping("/captions/{captionId}")
     @CrossOrigin(origins = "*")
-    public ResponseEntity<Legend> execute(@PathVariable String legendId,
+    public ResponseEntity<Legend> execute(@PathVariable String captionId,
                                           @Valid @RequestBody LegendRequest request) {
 
-        Legend response = service.execute(legendId, request);
+        Legend response = service.execute(captionId, request);
 
         return ResponseEntity.status(200).body(response);
 
