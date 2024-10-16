@@ -15,7 +15,7 @@ public class DeleteScheduleIdController {
     private final DeleteScheduleIdService service;
 
     @CrossOrigin(origins = "*")
-    @DeleteMapping("/v1/schedule/{scheduleId}")
+    @DeleteMapping("/v1/schedules/{scheduleId}")
     public ResponseEntity<Void> execute(@PathVariable String scheduleId) {
 
         service.execute(scheduleId);

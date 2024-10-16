@@ -17,7 +17,7 @@ public class CreateScheduleController {
 
     private final CreateSchedule service;
 
-    @PostMapping("/v1/schedule")
+    @PostMapping("/v1/schedules")
     @CrossOrigin(origins = "*")
     public ResponseEntity<Schedule> execute(@Valid @RequestBody ScheduleRequest request) {
 
