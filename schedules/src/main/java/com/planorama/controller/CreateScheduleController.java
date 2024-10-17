@@ -6,10 +6,7 @@ import com.planorama.service.CreateSchedule;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -17,9 +14,10 @@ public class CreateScheduleController {
 
     private final CreateSchedule service;
 
-    @PostMapping("/schedules")
+    @PostMapping("/schedules/users/{userId}")
     @CrossOrigin(origins = "*")
-    public ResponseEntity<Schedule> execute(@Valid @RequestBody ScheduleRequest request) {
+    public ResponseEntity<Schedule> execute(@PathVariable String userId,
+                                            @Valid @RequestBody ScheduleRequest request) {
 
         Schedule response = service.execute(request);
 

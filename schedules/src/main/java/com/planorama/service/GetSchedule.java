@@ -13,7 +13,7 @@ import java.util.UUID;
 @Service
 public class GetSchedule {
 
-    public List<Schedule> execute() {
+    public List<Schedule> execute(String userId) {
         List<Schedule> schedules = new ArrayList<>();
 
         for (int i = 0; i < 5; i++) {
@@ -21,8 +21,8 @@ public class GetSchedule {
             OffsetTime endTime = startTime.plusHours(2 + i);
 
             Schedule schedule = new Schedule(UUID.randomUUID().toString(),
-                    "Melo",
                     UUID.randomUUID().toString(),
+                    userId,
                     startTime,
                     endTime);
 

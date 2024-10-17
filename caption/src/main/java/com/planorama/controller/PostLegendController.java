@@ -6,10 +6,7 @@ import com.planorama.service.PostLegendService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -17,11 +14,12 @@ public class PostLegendController {
 
     private final PostLegendService service;
 
-    @PostMapping("/captions")
+    @PostMapping("/captions/users/{userId}")
     @CrossOrigin(origins = "*")
-    public ResponseEntity<Legend> execute(@Valid @RequestBody LegendRequest request) {
+    public ResponseEntity<Legend> execute(@PathVariable String userId,
+                                          @Valid @RequestBody LegendRequest request) {
 
-        Legend response = service.execute(request);
+        Legend response = service.execute(request, userId);
 
         return ResponseEntity.status(201).body(response);
 

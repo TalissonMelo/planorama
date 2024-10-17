@@ -12,10 +12,10 @@ import java.util.UUID;
 public class PostLegendService {
 
 
-    public Legend execute(LegendRequest request) {
+    public Legend execute(LegendRequest request, String userId) {
 
         return new Legend(UUID.randomUUID().toString(),
-                request.userId(),
+                userId,
                 request.color(),
                 request.description());
     }
