@@ -15,6 +15,7 @@ public class PutScheduleController {
     private final PutScheduleService service;
 
     @PutMapping("/schedules/{scheduleId}")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<ScheduleResponse> execute(@RequestHeader(value = "timezone", required = true) String timezone,
                                                     @PathVariable String scheduleId,
                                                     @Valid @RequestBody ScheduleRequest request) {

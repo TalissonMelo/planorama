@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -29,8 +30,8 @@ public class PutScheduleService {
 
         return new ScheduleResponse(
                 scheduleId,
+                UUID.randomUUID().toString(),
                 request.name(),
-                request.userId(),
                 formattedStartTime,
                 formattedEndTime
         );
