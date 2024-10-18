@@ -1,30 +1,40 @@
 package com.planorama.service;
 
-import com.planorama.domain.Schedule;
+import com.planorama.controller.request.ScheduleResponse;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
-import java.time.OffsetTime;
-import java.time.ZoneOffset;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+
 @Service
 public class GetSchedule {
 
-    public List<Schedule> execute(String userId) {
-        List<Schedule> schedules = new ArrayList<>();
+    public List<ScheduleResponse> execute(String userId, String timezone) {
+        List<ScheduleResponse> schedules = new ArrayList<>();
+
+        ZoneId zoneId = ZoneId.of(timezone);
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 
         for (int i = 0; i < 5; i++) {
-            OffsetTime startTime = OffsetTime.of(9 + i, 30, 0, 0, ZoneOffset.of("-03:00"));
-            OffsetTime endTime = startTime.plusHours(2 + i);
+            ZonedDateTime startTime = ZonedDateTime.now(zoneId).plusHours(i);
+            ZonedDateTime endTime = startTime.plusHours(i);
 
-            Schedule schedule = new Schedule(UUID.randomUUID().toString(),
+
+            String formattedStartTime = startTime.format(timeFormatter);
+            String formattedEndTime = endTime.format(timeFormatter);
+
+            ScheduleResponse schedule = new ScheduleResponse(
                     UUID.randomUUID().toString(),
-                    userId,
-                    startTime,
-                    endTime);
+                    UUID.randomUUID().toString(),
+                    "Talisson De Melo Rodrigues",
+                    formattedStartTime,
+                    formattedEndTime
+            );
 
             schedules.add(schedule);
         }

@@ -16,10 +16,11 @@ public class CreateScheduleController {
 
     @PostMapping("/schedules/users/{userId}")
     @CrossOrigin(origins = "*")
-    public ResponseEntity<Schedule> execute(@PathVariable String userId,
+    public ResponseEntity<Schedule> execute(@RequestHeader(value = "timezone", required = true) String timezone,
+                                            @PathVariable String userId,
                                             @Valid @RequestBody ScheduleRequest request) {
 
-        Schedule response = service.execute(request);
+        Schedule response = service.execute(request, userId, timezone);
 
         return ResponseEntity.status(201).body(response);
 

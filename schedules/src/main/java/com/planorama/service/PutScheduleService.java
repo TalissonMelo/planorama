@@ -1,21 +1,38 @@
 package com.planorama.service;
 
 import com.planorama.controller.request.ScheduleRequest;
-import com.planorama.domain.Schedule;
+import com.planorama.controller.request.ScheduleResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Service
 @RequiredArgsConstructor
 public class PutScheduleService {
 
-    public Schedule execute(String scheduleId, ScheduleRequest request) {
+    public ScheduleResponse execute(String scheduleId, ScheduleRequest request, String timezone) {
 
-        return new Schedule(scheduleId,
+        ZoneId zoneId = ZoneId.of(timezone);
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+
+        LocalDate today = LocalDate.now(zoneId);
+
+        ZonedDateTime startTimeInZone = today.atTime(request.startTime()).atZone(zoneId);
+        ZonedDateTime endTimeInZone = today.atTime(request.endTime()).atZone(zoneId);
+
+        String formattedStartTime = startTimeInZone.format(timeFormatter);
+        String formattedEndTime = endTimeInZone.format(timeFormatter);
+
+        return new ScheduleResponse(
+                scheduleId,
                 request.name(),
                 request.userId(),
-                request.startTime(),
-                request.endTime());
+                formattedStartTime,
+                formattedEndTime
+        );
     }
-
 }
