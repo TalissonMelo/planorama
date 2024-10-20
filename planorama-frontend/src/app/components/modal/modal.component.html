@@ -1,0 +1,127 @@
+<div class="fixed-width-modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="my-custom-modal-header">
+        <div class="header-content">
+            <h5 class="my-custom-modal-title">{{ label.legenda | translate }} {{date| date: 'dd/MM/yyyy'}}</h5>
+            <button type="button" class="my-custom-close-button" (click)="close()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+    <!-- <div *ngIf="memberSchedule?.type == 'CREATOR'" class="container mb-2"> -->
+    <div class="container mb-2">
+
+        <div class="form-group row mt-2">
+            <div class="col-sm-3">
+                <label for="startDate">{{ label.data_inicio | translate }}</label>
+                <input type="date" class="form-control" [(ngModel)]="sessionRequest.startDate" id="startDate"
+                    name="startDate">
+            </div>
+            <div class="col-sm-3">
+                <label for="startTime">{{ label.horario_inicial | translate }}</label>
+                <input type="time" class="form-control" [(ngModel)]="sessionRequest.startTime" id="startTime"
+                    name="startTime">
+            </div>
+            <div class="col-sm-3">
+                <label for="endDate">{{ label.data_final | translate }}</label>
+                <input type="date" class="form-control" [(ngModel)]="sessionRequest.endDate" id="endDate"
+                    name="endDate">
+            </div>
+            <div class="col-sm-3">
+                <label for="endTime">{{ label.horario_final | translate }}</label>
+                <input type="time" class="form-control" [(ngModel)]="sessionRequest.endTime" id="endTime"
+                    name="endTime">
+            </div>
+            <div class="col-sm-6">
+                <label for="name">{{ label.titulo | translate }}</label>
+                <input type="text" id="title" name="title" [(ngModel)]="sessionRequest.title"
+                    class="my-custom-form-control form-control">
+            </div>
+            <div class="col-sm-6">
+                <label for="nome">{{ label.legenda | translate }}</label>
+                <div class="dropdown w-100" (click)="toggleDropdown()" [class.show]="dropdownOpen">
+                    <button class="btn btn-light dropdown-toggle w-100 text-start" type="button">
+                        <span class="color-circle me-2" [style.background]="getSelectedLegendColor()"></span>
+                        <span class="legend-description">{{ getSelectedLegendDescription() }}</span>
+                    </button>
+                    <ul class="dropdown-menu w-100" [class.show]="dropdownOpen">
+                        <li *ngFor="let legend of legends" (click)="selectLegend(legend)" class="dropdown-item">
+                            <span class="color-circle me-2" [style.background]="legend.color"></span>
+                            <span class="legend-description">{{ legend.description }}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <div class="col-sm-12">
+                    <label for="nome">{{ label.descricao | translate }}</label>
+                    <input type="text" class="form-control" [(ngModel)]="sessionRequest.description" id="description"
+                        name="description" />
+                </div>
+            </div>
+        </div>
+        <div class="form-group row mt-2">
+            <div class="col-sm-12">
+                <label for="days">{{ label.repetir | translate }}</label>
+                <p  class="small-text">
+                    {{ label.obs_repetir | translate}}
+                  </p>
+                <div id="days" class="d-flex flex-wrap">
+                    <div *ngFor="let day of daysOfWeeks" class="form-check form-check-inline">
+                        <input type="checkbox" class="form-check-input" [id]="day.value" [value]="day.value"
+                            (change)="onDayChange($event)">
+                        <label class="form-check-label" [for]="day.value">{{ day.label }}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="my-custom-ok-button" (click)="addEvent()">Registrar Horário</button>
+    </div>
+    <div class="container">
+        <table class="table table-bordered schedule-table">
+            <thead>
+                <tr>
+                    <th class="col-2">{{ label.titulo | translate }}</th>
+                    <th class="col-1">{{ label.inicio | translate }}</th>
+                    <th class="col-1">{{ label.fim | translate }}</th>
+                    <th class="col-1">{{ label.legenda | translate }}</th>
+                    <th class="col-5">{{ label.descricao | translate }}</th>
+                    <th class="col-1"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let event of events">
+                    <td class="col-2">{{event.title}}</td>
+                    <td class="col-1">
+                        {{event.start| date: 'HH:mm:ss'}}
+                    </td>
+                    <td class="col-1">
+                        {{event.end | date: 'HH:mm:ss' }}
+                    </td>
+                    <td class="col-1" [style.background]="event.color.primary">
+                    </td>
+                    <td *ngIf="sessionIdEdit != event.id" class="col-5">
+                        {{event.description}}
+                    </td>
+                    <td *ngIf="sessionIdEdit == event.id" class="col-5">
+                        <input type="text" class="form-control" [(ngModel)]="event.description" id="description"
+                            name="description" />
+                    </td>
+                    <td class="col-1">
+                        <button *ngIf="sessionIdEdit != event.id && memberSchedule.type != 'VIEWER'" mat-icon-button
+                            color="primary" (click)="edit(event)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button *ngIf="sessionIdEdit != event.id && memberSchedule.type == 'CREATOR'" mat-icon-button
+                            color="warn" (click)="deleted(event)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                        <button *ngIf="sessionIdEdit == event.id" mat-icon-button color="warn"
+                            (click)="editDescription(event)">
+                            <mat-icon>save</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

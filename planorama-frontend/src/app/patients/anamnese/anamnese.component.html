@@ -1,0 +1,69 @@
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h4>Adicionar Nova Pergunta</h4>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label class="form-label">Enunciado da Pergunta:</label>
+                        <input type="text" class="form-control" [(ngModel)]="novaPergunta.enunciado"
+                            placeholder="Digite o enunciado aqui" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Tipo de Pergunta:</label>
+                        <select class="form-select" [(ngModel)]="novaPergunta.tipo">
+                            <option value="TEXTO">Texto</option>
+                            <option value="NUMERICO">Numérico</option>
+                            <option value="MULTIPLA_ESCOLHA">Múltipla Escolha</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3" *ngIf="novaPergunta.tipo === 'MULTIPLA_ESCOLHA'">
+                        <label class="form-label">Opções (separadas por vírgula):</label>
+                        <input type="text" class="form-control" [(ngModel)]="novaPergunta.opcoes"
+                            placeholder="Ex: Sim, Não, Talvez" />
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-3">
+                        <button type="button" class="btn btn-primary" (click)="addPergunta()">Adicionar
+                            Pergunta</button>
+                        <button type="submit" class="btn btn-success">Salvar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h4>Perguntas Adicionadas</h4>
+                </div>
+                <div class="card-body">
+                    <div *ngFor="let pergunta of perguntas; let i = index">
+                        <div class="form-group mb-3 d-flex align-items-center">
+                            <div class="flex-grow-1">
+                                <label class="form-label">{{ pergunta.enunciado }}</label>
+                                <input *ngIf="pergunta.tipo === 'TEXTO'" type="text" class="form-control"
+                                    placeholder="Digite sua resposta aqui" />
+                                <input *ngIf="pergunta.tipo === 'NUMERICO'" type="number" class="form-control"
+                                    placeholder="Digite um número" />
+                                <select *ngIf="pergunta.tipo === 'MULTIPLA_ESCOLHA'" class="form-select">
+                                    <option value="" disabled>Selecione uma opção</option>
+                                    <option *ngFor="let opcao of pergunta.opcoes" [value]="opcao">{{ opcao }}</option>
+                                </select>
+                            </div>
+                            <button type="button" class="btn btn-danger btn-sm ms-2 mt-4" (click)="deletePergunta(i)">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </div>
+                        <div class="row">
+                            <hr style="border: 1px solid #ccc; margin: 20px 0;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,150 @@
+<div class="container mt-4">
+    <div class="back-link" routerLink="/patients">
+        <mat-icon>arrow_back</mat-icon> {{ label.voltar | translate }}
+    </div>
+
+    <h2>{{ "Edição de Pacientes Cadastro de Pacientes" }}</h2>
+
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="dados-paciente-tab" data-bs-toggle="tab" href="#dados-paciente" role="tab"
+                aria-controls="dados-paciente" aria-selected="true">Dados do Paciente</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="responsavel-tab" data-bs-toggle="tab" href="#responsavel" role="tab"
+                aria-controls="responsavel" aria-selected="false">Responsável</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="financeiro-tab" data-bs-toggle="tab" href="#financeiro" role="tab"
+                aria-controls="financeiro" aria-selected="false">Financeiro</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="anamnese-tab" data-bs-toggle="tab" href="#anamnese" role="tab"
+                aria-controls="anamnese" aria-selected="false">Anamnese</a>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active mt-3" id="dados-paciente" role="tabpanel" aria-labelledby="dados-paciente-tab">
+            <div class="mb-3">
+                <label class="form-label">Nome Completo:</label>
+                <input type="text" class="form-control" placeholder="Digite o nome completo" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Data de Nascimento:</label>
+                <input type="date" class="form-control" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Email:</label>
+                <input type="email" class="form-control" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Sexo:</label>
+                <select class="form-control">
+                    <option value="Masculino">Masculino</option>
+                    <option value="Feminino">Feminino</option>
+                    <option value="Outro">Outro</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Escolaridade (Opcional):</label>
+                <input type="text" class="form-control" placeholder="Digite a escolaridade" />
+            </div>
+
+            <h5>Endereço</h5>
+            <div class="mb-3">
+                <label class="form-label">CEP:</label>
+                <input type="text" class="form-control" placeholder="Digite o CEP" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Estado:</label>
+                <input type="text" class="form-control" placeholder="Digite o estado" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Cidade:</label>
+                <input type="text" class="form-control" placeholder="Digite a cidade" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Profissão:</label>
+                <input type="text" class="form-control" placeholder="Digite a profissão" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Telefone:</label>
+                <input type="text" class="form-control" placeholder="Digite o telefone" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Estado Civil:</label>
+                <select class="form-control">
+                    <option value="Solteiro">Solteiro</option>
+                    <option value="Casado">Casado</option>
+                    <option value="Divorciado">Divorciado</option>
+                    <option value="Viúvo">Viúvo</option>
+                </select>
+            </div>
+
+            <button type="button" class="btn btn-primary mt-3">Salvar</button>
+        </div>
+
+        <div class="tab-pane fade mt-3" id="responsavel" role="tabpanel" aria-labelledby="responsavel-tab">
+            <div class="mb-3">
+                <label class="form-label">Nome do Responsável:</label>
+                <input type="text" class="form-control" placeholder="Digite o nome do responsável" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Parentesco:</label>
+                <input type="text" class="form-control" placeholder="Digite o parentesco" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">CPF:</label>
+                <input type="text" class="form-control" placeholder="Digite o CPF" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Telefone do Responsável:</label>
+                <input type="text" class="form-control" placeholder="Digite o telefone do responsável" />
+            </div>
+
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="permitirCobranca">
+                <label class="form-check-label" for="permitirCobranca">
+                    Permitir enviar cobranças no nome do responsável
+                </label>
+            </div>
+            <button type="button" class="btn btn-primary mt-3">Salvar</button>
+
+        </div>
+
+        <div class="tab-pane fade mt-3" id="financeiro" role="tabpanel" aria-labelledby="financeiro-tab">
+            <div class="mb-3">
+                <label class="form-label">Plano Financeiro:</label>
+                <select class="form-control">
+                    <option value="sessao">Por Sessão</option>
+                    <option value="mes">Por Mês</option>
+                    <option value="convenio">Convênio</option>
+                    <option value="isento">Isento</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Valor da Sessão:</label>
+                <input type="number" class="form-control" placeholder="Digite o valor da sessão" step="0.01" min="0" />
+            </div>
+            <button type="button" class="btn btn-primary mt-3">Salvar</button>
+        </div>
+
+        <div class="tab-pane fade" id="anamnese" role="tabpanel" aria-labelledby="anamnese-tab">
+            <app-anamnese></app-anamnese>
+        </div>
+    </div>
+</div>

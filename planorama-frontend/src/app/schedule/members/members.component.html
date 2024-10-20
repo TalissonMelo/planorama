@@ -1,0 +1,58 @@
+<div class="container">
+    <div class="back-link" routerLink="/schedule">
+        <mat-icon>arrow_back</mat-icon> {{ label.voltar | translate}}
+    </div>
+    <div class="form-container">
+        <h2>{{ schedule.name}}</h2>
+        <div class="form-group row">
+            <div class="col-sm-8">
+                <label for="email"> {{ label.email | translate}}</label>
+                <input type="email" id="email" name="email" class="my-custom-form-control form-control" [(ngModel)]="member.email" required>
+            </div>
+            <div class="col-sm-4">
+                <label for="type">{{ label.permissoes | translate}}</label>
+                <select id="type" name="type" class="my-custom-form-control form-control"  [(ngModel)]="member.type" required>
+                    <option value="EDITOR">{{ label.editar | translate}}</option>
+                    <option value="VIEWER">{{ label.visualizar | translate}}</option>
+                </select>
+            </div>           
+        </div>
+        <button type="button" (click)="save()" class="btn btn-primary btn-block w-100 text-center mt-3">{{ label.adicionar_membro | translate}}</button>
+    </div>
+</div>
+<div class="container mt-3">
+    <div class="table-responsive">
+        <table class="table schedule-table">
+            <thead>
+                <tr>
+                    <th class="col-4"> {{ label.nome | translate}}</th>
+                    <th class="col-3"> {{ label.email | translate}}</th>
+                    <th class="col-2"> {{ label.telefone | translate}}</th>
+                    <th class="col-2">{{ label.permissoes | translate}}</th>
+                    <th class="col-1"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let member of members">
+                    <td class="col-4 action-icons">{{ member.member.nickname }}</td>
+                    <td class="col-3 action-icons">{{ member.member.email }}</td>
+                    <td class="col-2 action-icons">{{ member.member.phone }}</td>
+                    <td class="col-2 action-icons">
+                        <select id="type" name="type" class="my-custom-form-control form-control action-icons"
+                            [value]="member.member.type" disabled>
+                            <option value="CREATOR">{{ label.criador | translate}}</option>
+                            <option value="EDITOR">{{ label.editar | translate}}</option>
+                            <option value="VIEWER">{{ label.visualizar | translate}}</option>
+                        </select>
+                    </td>
+                    <td class="col-1 text-center action-icons align-middle">
+                        <!-- *ngIf="memberSchedule.type !== 'VIEWER'" -->
+                        <button  mat-icon-button color="warn" (click)="deletarMembro(member)">
+                            <mat-icon>delete</mat-icon>
+                          </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

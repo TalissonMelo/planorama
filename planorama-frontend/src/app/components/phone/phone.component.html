@@ -1,0 +1,22 @@
+<div class="form-group">
+  <label for="telefone">{{ label.telefone | translate }}</label>
+  <div class="input-group custom-input-group">
+    <select class="form-control" [(ngModel)]="selectedCountryCode" (ngModelChange)="onCountryCodeChange($event)">
+      <option *ngFor="let country of countryCodes" [value]="country.code">
+        {{ country.name }} ({{ country.code }})
+      </option>
+    </select>
+
+    <input 
+      [id]="id" 
+      type="text" 
+      [name]="id" 
+      [placeholder]="selectedMaskAndPlaceholder" 
+      class="form-control" 
+      [(ngModel)]="changePhone" 
+      (ngModelChange)="onPhoneChange($event)"  
+      [mask]="selectedMaskAndPlaceholder" 
+      [dropSpecialCharacters]="false" 
+    />
+  </div>
+</div>

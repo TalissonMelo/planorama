@@ -1,0 +1,22 @@
+.color-box {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  border-radius: 50%; 
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+}
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px; 
+}
+
+.d-flex.flex-wrap {
+  gap: 10px; 
+}

@@ -1,0 +1,67 @@
+<div class="container mb-3">
+  <div class="row">
+    <div class="agenda-container">
+      <div class="back-link" routerLink="/schedule">
+        <mat-icon>arrow_back</mat-icon> {{ label.voltar | translate}}
+      </div>
+      <h2 class="text-center">{{schedule.name}}</h2>
+      <div class="row text-center">
+        <div class="col-md-4">
+          <div class="btn-group">
+            <div class="btn btn-primary" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
+              (viewDateChange)="closeOpenMonthViewDay()">
+              {{ label.anterior | translate}}
+            </div>
+            <div class="btn btn-outline-secondary" mwlCalendarToday [(viewDate)]="viewDate">
+              {{ label.hoje | translate}}
+            </div>
+            <div class="btn btn-primary" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
+              (viewDateChange)="closeOpenMonthViewDay()">
+              {{ label.proximo | translate}}
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'): defaultLang }}</h3>
+        </div>
+        <div class="col-md-4">
+          <div class="btn-group">
+            <div class="btn btn-primary" (click)="setView(CalendarView.Month)"
+              [class.active]="view === CalendarView.Month">
+              {{ label.mes | translate}}
+            </div>
+            <div class="btn btn-primary" (click)="setView(CalendarView.Week)"
+              [class.active]="view === CalendarView.Week">
+              {{ label.semana | translate}}
+            </div>
+            <div class="btn btn-primary" (click)="setView(CalendarView.Day)" [class.active]="view === CalendarView.Day">
+              {{ label.dia | translate}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="container mt-1 legenda-container">
+        <div class="row justify-content-center">
+          <div class="d-flex flex-wrap justify-content-center">
+            <div *ngFor="let legend of legends" class="legend-item d-flex align-items-center mb-2 me-3">
+              <span class="color-box" [style.background-color]="legend.color"></span>
+              <span class="ms-2 ellipsis">{{ legend.description }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div [ngSwitch]="view">
+        <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events"
+          (dayClicked)="openModal($event.day)">
+        </mwl-calendar-month-view>
+        <mwl-calendar-week-view *ngSwitchCase="CalendarView.Week" [viewDate]="viewDate" [events]="events">
+          <!-- [dayStartHour]="start" [dayEndHour]="finish" -->
+        </mwl-calendar-week-view>
+        <mwl-calendar-day-view *ngSwitchCase="CalendarView.Day" [viewDate]="viewDate" [events]="events"
+          (eventClicked)="onEventClicked($event)"> <!-- [dayStartHour]="start" [dayEndHour]="finish" -->
+        </mwl-calendar-day-view>
+      </div>
+    </div>
+  </div>
+</div>

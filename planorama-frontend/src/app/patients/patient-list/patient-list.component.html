@@ -1,0 +1,30 @@
+<div class="container mt-4">
+    <div class="back-link" routerLink="/">
+        <mat-icon>arrow_back</mat-icon> {{ label.voltar | translate}}
+    </div>
+    <h2>{{ label.pacientes | translate}}</h2>
+    <button class="btn btn-primary mb-3" routerLink="/patients/new">Novo Paciente</button>
+  
+    <table class="table table-bordered">
+      <thead class="thead-light">
+        <tr>
+          <th>Nome</th>
+          <th>Email</th>
+          <th>Telefone</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let patient of patients">
+          <td>{{ patient.nome }}</td>
+          <td>{{ patient.email }}</td>
+          <td>{{ patient.telefone }}</td>
+          <td>
+            <button class="btn btn-warning btn-sm" [routerLink]="['/patients/edit', patient.id]">Editar</button>
+            <button class="btn btn-danger btn-sm" (click)="deletePatient(patient.id)">Excluir</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

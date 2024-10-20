@@ -1,0 +1,59 @@
+<div class="container mt-3">
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>{{ label.selecione_data | translate }}</mat-label>
+                <input matInput [matDatepicker]="picker" (dateChange)="onDateChange($event)">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title text-center font-weight-bold">{{ label.agenda | translate }}</h4>
+                    <div *ngFor="let busyHour of busyHours">
+                        <h3 class="card-subtitle text-muted">{{ busyHour.name }}</h3>
+                        <ul class="list-group">
+                            <li *ngFor="let session of busyHour.sessions" class="list-group-item d-flex justify-content-between align-items-center">
+                                {{ session.title }} - {{ session.startTime | date: 'HH:mm' }} às {{ session.endTime | date: 'HH:mm' }}
+                                <button mat-button (click)="openVideo(session)">
+                                    <i class="fas fa-video"></i>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title text-center font-weight-bold">{{ label.horario_disponivel | translate }}</h4>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{ label.selecione_periodo | translate }}</mat-label>
+                        <mat-select [(value)]="selectedDuration" (selectionChange)="onDurationChange($event)">
+                            <mat-option *ngFor="let duration of durations" [value]="duration.value">
+                                {{ duration.label }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <div *ngFor="let vacantTime of vacantTimes">
+                        <h3 class="card-subtitle text-muted">{{ vacantTime.title }}</h3>
+                        <ul class="list-group">
+                            <li *ngFor="let time of vacantTime.times" class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>{{ time.startTime }} às {{ time.endTime }}</span>
+                                <button mat-button (click)="openAddModal(time)">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
