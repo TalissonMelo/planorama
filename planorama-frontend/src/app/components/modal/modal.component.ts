@@ -2,7 +2,6 @@ import { Component, EventEmitter, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { LegendResponse } from 'src/app/legend/domain/legend_response';
 import { LegendService } from 'src/app/legend/service/legend.service';
-import { MemberSchedule } from 'src/app/schedule/members/domain/member_schedule';
 import { MemberService } from 'src/app/schedule/members/service/member.service';
 import { ScheduleResponse } from 'src/app/schedule/schedule-name/domain/schedule_response';
 import { UseSession } from 'src/app/util/useSession';
@@ -15,6 +14,7 @@ import { SessionUpdate } from './domain/session_update';
 import { NotificationEmitter } from '../notification/notification_emitter';
 import label from 'src/assets/i18n/label';
 import { TranslateService } from '@ngx-translate/core';
+import { MemberResponse } from 'src/app/schedule/members/domain/member_response';
 
 @Component({
   selector: 'app-modal',
@@ -30,28 +30,31 @@ export class ModalComponent implements OnInit {
   // public legends: LegendResponse[] = [];
   public events: SessionResponse[] = [];
   public sessionRequest: SessionRequest;
-  public memberSchedule!: MemberSchedule;
+  public memberSchedule!: MemberResponse;
   public schedule: ScheduleResponse;
   public selectedDays: any[] = [];
   public useSession: UseSession;
 
-  public daysOfWeeks = this.translate.getDefaultLang() === "en" ? [
-    { label: 'Monday', value: 'MONDAY' },
-    { label: 'Tuesday', value: 'TUESDAY' },
-    { label: 'Wednesday', value: 'WEDNESDAY' },
-    { label: 'Thursday', value: 'THURSDAY' },
-    { label: 'Friday', value: 'FRIDAY' },
-    { label: 'Saturday', value: 'SATURDAY' },
-    { label: 'Sunday', value: 'SUNDAY' },
-  ] : [
-    { label: 'Segunda-feira', value: 'MONDAY' },
-    { label: 'Terça-feira', value: 'TUESDAY' },
-    { label: 'Quarta-feira', value: 'WEDNESDAY' },
-    { label: 'Quinta-feira', value: 'THURSDAY' },
-    { label: 'Sexta-feira', value: 'FRIDAY' },
-    { label: 'Sábado', value: 'SATURDAY' },
-    { label: 'Domingo', value: 'SUNDAY' },
-  ];
+  public daysOfWeeks =
+    this.translate.getDefaultLang() === 'en'
+      ? [
+          { label: 'Monday', value: 'MONDAY' },
+          { label: 'Tuesday', value: 'TUESDAY' },
+          { label: 'Wednesday', value: 'WEDNESDAY' },
+          { label: 'Thursday', value: 'THURSDAY' },
+          { label: 'Friday', value: 'FRIDAY' },
+          { label: 'Saturday', value: 'SATURDAY' },
+          { label: 'Sunday', value: 'SUNDAY' },
+        ]
+      : [
+          { label: 'Segunda-feira', value: 'MONDAY' },
+          { label: 'Terça-feira', value: 'TUESDAY' },
+          { label: 'Quarta-feira', value: 'WEDNESDAY' },
+          { label: 'Quinta-feira', value: 'THURSDAY' },
+          { label: 'Sexta-feira', value: 'FRIDAY' },
+          { label: 'Sábado', value: 'SATURDAY' },
+          { label: 'Domingo', value: 'SUNDAY' },
+        ];
 
   legends: LegendResponse[] = [
     {
@@ -186,12 +189,14 @@ export class ModalComponent implements OnInit {
           this.events.splice(index, 1);
           this.loaderService.hide();
           this.notificationService.showSuccess(
-            'Appointment deleted successfully!');
+            'Appointment deleted successfully!'
+          );
         },
         (error) => {
           this.loaderService.hide();
           this.notificationService.showError(
-            'Schedule not deleted, please try again.');
+            'Schedule not deleted, please try again.'
+          );
         }
       );
     }
@@ -218,8 +223,7 @@ export class ModalComponent implements OnInit {
       (res) => {
         this.sessionIdEdit = '';
         this.loaderService.hide();
-        this.notificationService.showSuccess(
-          'Schedule updated successfully!');
+        this.notificationService.showSuccess('Schedule updated successfully!');
       },
       (error) => {
         this.loaderService.hide();
@@ -243,7 +247,11 @@ export class ModalComponent implements OnInit {
     const selected = this.legends.find(
       (legend) => legend.id === this.sessionRequest.legendId
     );
-    return selected ? selected.description : this.translate.getDefaultLang() === "en" ? "Select a legend" : "Selecione uma legenda";
+    return selected
+      ? selected.description
+      : this.translate.getDefaultLang() === 'en'
+      ? 'Select a legend'
+      : 'Selecione uma legenda';
   }
 
   getSelectedLegendColor() {

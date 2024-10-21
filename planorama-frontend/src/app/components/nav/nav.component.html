@@ -25,10 +25,16 @@
       </mat-list-item>
       <mat-list-item (click)="openPatients()">
         <button mat-button class="menu-item">
-          <mat-icon>person</mat-icon>  <!-- Ícone representando paciente -->
-          <span>{{ label.pacientes | translate }}</span> <!-- Texto traduzido -->
+          <mat-icon>person</mat-icon> 
+          <span>{{ label.pacientes | translate }}</span> 
         </button>
-      </mat-list-item>      
+      </mat-list-item>   
+      <mat-list-item (click)="openInvites()">
+        <button mat-button class="menu-item">
+          <mat-icon>drafts</mat-icon> 
+          <span>{{ label.convites | translate }}</span> 
+        </button>
+      </mat-list-item>         
       <mat-list-item (click)="configure()">
         <button mat-button class="menu-item">
           <mat-icon>settings</mat-icon>

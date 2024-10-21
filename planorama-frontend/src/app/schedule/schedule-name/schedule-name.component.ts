@@ -36,16 +36,7 @@ export class ScheduleNameComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.listPermissions();
     this.listSchedules();
-  }
-
-  listPermissions(): void {
-    this.service.permissions().subscribe((res) => {
-      this.userPermissions = new UserPermissions();
-      this.userPermissions.id = res.id;
-      this.userPermissions.profiles = res.profiles || [];
-    });
   }
 
   listSchedules(): void {

@@ -1,13 +1,16 @@
 export class MemberRequest {
-  public scheduleId!: string;
-  public phone!: string;
+  public ownerId!: string;
+  public schedule: ScheduleMember = new ScheduleMember();
   public email!: string;
-  public type: MemberType = MemberType.VIEWER;
-  public nickname!: string;
+  public memberType: MemberType = MemberType.VIEWER;
 }
 
-enum MemberType {
-  CREATOR,
+export enum MemberType {
   EDITOR,
   VIEWER,
+}
+
+export class ScheduleMember {
+  public id!: string;
+  public name!: string;
 }

@@ -9,7 +9,6 @@ import { SessionService } from '../components/modal/service/session.service';
 import { LegendResponse } from '../legend/domain/legend_response';
 import { LegendService } from '../legend/service/legend.service';
 import { UseSession } from '../util/useSession';
-import { MemberSchedule } from './members/domain/member_schedule';
 import { MemberService } from './members/service/member.service';
 import { ScheduleResponse } from './schedule-name/domain/schedule_response';
 import { NotificationEmitter } from '../components/notification/notification_emitter';
@@ -17,6 +16,7 @@ import { addHours, startOfDay } from 'date-fns';
 import { ChatComponent } from '../chat/chat.component';
 import label from 'src/assets/i18n/label';
 import { TranslateService } from '@ngx-translate/core';
+import { MemberResponse } from './members/domain/member_response';
 
 export function localeFactory(translate: TranslateService) {
   return translate.getDefaultLang() === 'pt'
@@ -83,7 +83,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   public finish!: number;
   public useSession: UseSession;
   public schedule!: ScheduleResponse;
-  public memberSchedule!: MemberSchedule;
+  public memberSchedule!: MemberResponse;
   // public legends: LegendResponse[] = [];
 
   legends: LegendResponse[] = [

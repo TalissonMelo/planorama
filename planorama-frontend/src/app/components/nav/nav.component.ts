@@ -39,4 +39,8 @@ export class NavComponent {
   openPatients(): void {
     this.router.navigate(['/patients']);
   }
+
+  openInvites(): void {
+    this.router.navigate(['/members']);
+  }
 }

@@ -5,7 +5,6 @@ import { UseSession } from 'src/app/util/useSession';
 import { environment } from 'src/environments/environment';
 import { MemberRequest } from '../domain/member_request';
 import { MemberResponse } from '../domain/member_response';
-import { MemberSchedule } from '../domain/member_schedule';
 
 @Injectable({
   providedIn: 'root',
@@ -17,27 +16,28 @@ export class MemberService {
     this.useSession = new UseSession();
   }
 
+  listMember(scheduleId: string): Observable<MemberResponse> {
+    const memberId: string = this.useSession.getUser().id;
+    return this.http.get<MemberResponse>(
+      `${environment.url}/members/${memberId}/schedule/${scheduleId}`
+    );
+  }
+
   list(scheduleId: string): Observable<MemberResponse[]> {
     return this.http.get<MemberResponse[]>(
-      `${environment.uri}/v1/schedule/${scheduleId}/members`
-    );
-  }
-
-  save(member: MemberRequest): Observable<MemberResponse> {
-    return this.http.post<MemberResponse>(
-      `${environment.uri}/v1/members`,
-      member
-    );
-  }
-
-  listMember(scheduleId: string): Observable<MemberSchedule> {
-    const memberId: string = this.useSession.getUser().id;
-    return this.http.get<MemberSchedule>(
-      `${environment.uri}/v1/schedule/${scheduleId}/members/${memberId}`
+      `${environment.url}/members/schedule/${scheduleId}`
     );
   }
 
   delete(memberId: string): Observable<any> {
-    return this.http.delete<any>(`${environment.uri}/v1/members/${memberId}`);
+    return this.http.delete<any>(`${environment.url}/members/${memberId}`);
+  }
+
+  save(member: MemberRequest): Observable<MemberResponse> {
+    member.ownerId = this.useSession.getUser().id;
+    return this.http.post<MemberResponse>(
+      `${environment.url}/members/schedules`,
+      member
+    );
   }
 }

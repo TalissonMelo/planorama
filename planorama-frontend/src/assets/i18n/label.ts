@@ -93,6 +93,7 @@ const label = {
   apelido: 'apelido',
   sobrenome: 'sobrenome',
   pacientes: 'pacientes',
+  convites: 'convites',
 };
 
 export default label;

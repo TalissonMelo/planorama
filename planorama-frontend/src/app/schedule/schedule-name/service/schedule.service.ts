@@ -80,10 +80,4 @@ export class ScheduleService {
       }
     );
   }
-
-  permissions(): Observable<UserPermissions> {
-    return this.http.get<UserPermissions>(
-      `${environment.uri}/v1/users/profiles`
-    );
-  }
 }

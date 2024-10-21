@@ -11,7 +11,7 @@
             </div>
             <div class="col-sm-4">
                 <label for="type">{{ label.permissoes | translate}}</label>
-                <select id="type" name="type" class="my-custom-form-control form-control"  [(ngModel)]="member.type" required>
+                <select id="type" name="type" class="my-custom-form-control form-control"  [(ngModel)]="member.memberType" required>
                     <option value="EDITOR">{{ label.editar | translate}}</option>
                     <option value="VIEWER">{{ label.visualizar | translate}}</option>
                 </select>
@@ -27,27 +27,24 @@
                 <tr>
                     <th class="col-4"> {{ label.nome | translate}}</th>
                     <th class="col-3"> {{ label.email | translate}}</th>
-                    <th class="col-2"> {{ label.telefone | translate}}</th>
                     <th class="col-2">{{ label.permissoes | translate}}</th>
                     <th class="col-1"></th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let member of members">
-                    <td class="col-4 action-icons">{{ member.member.nickname }}</td>
-                    <td class="col-3 action-icons">{{ member.member.email }}</td>
-                    <td class="col-2 action-icons">{{ member.member.phone }}</td>
+                    <td class="col-4 action-icons">{{ member.user.name }}</td>
+                    <td class="col-3 action-icons">{{ member.user.email }}</td>
                     <td class="col-2 action-icons">
                         <select id="type" name="type" class="my-custom-form-control form-control action-icons"
-                            [value]="member.member.type" disabled>
-                            <option value="CREATOR">{{ label.criador | translate}}</option>
+                            [value]="member.memberType" disabled>
                             <option value="EDITOR">{{ label.editar | translate}}</option>
                             <option value="VIEWER">{{ label.visualizar | translate}}</option>
                         </select>
                     </td>
+                    <!-- *ngIf="member.memberType === memberType.EDITOR" -->
                     <td class="col-1 text-center action-icons align-middle">
-                        <!-- *ngIf="memberSchedule.type !== 'VIEWER'" -->
-                        <button  mat-icon-button color="warn" (click)="deletarMembro(member)">
+                        <button mat-icon-button color="warn" (click)="deletarMembro(member)">
                             <mat-icon>delete</mat-icon>
                           </button>
                     </td>

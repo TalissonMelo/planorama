@@ -5,16 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="690ad1a1-e3e2-4dd4-9d1b-eec2bdaa9cbf" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../settings/src/main/java/com/planorama/controller/GetSettingsUserController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../settings/src/main/java/com/planorama/controller/PostSettingsController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../settings/src/main/java/com/planorama/controller/request/Settings.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../settings/src/main/java/com/planorama/model/Settings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../schedules/src/main/java/com/planorama/controller/CreateScheduleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../schedules/src/main/java/com/planorama/controller/CreateScheduleController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../schedules/src/main/java/com/planorama/controller/request/ScheduleRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../schedules/src/main/java/com/planorama/controller/request/ScheduleRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../schedules/src/main/java/com/planorama/domain/Schedule.java" beforeDir="false" afterPath="$PROJECT_DIR$/../schedules/src/main/java/com/planorama/domain/Schedule.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../schedules/src/main/java/com/planorama/service/CreateSchedule.java" beforeDir="false" afterPath="$PROJECT_DIR$/../schedules/src/main/java/com/planorama/service/CreateSchedule.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../schedules/src/main/java/com/planorama/service/GetSchedule.java" beforeDir="false" afterPath="$PROJECT_DIR$/../schedules/src/main/java/com/planorama/service/GetSchedule.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../settings/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../settings/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/planorama/exceptions/Details.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/planorama/exceptions/ErrorValidationHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/planorama/exceptions/Name.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../members/src/main/java/com/planorama/controller/request/MemberUserRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../members/src/main/java/com/planorama/controller/request/MemberUserRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../planorama-frontend/src/app/components/modal/modal.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../planorama-frontend/src/app/components/modal/modal.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../planorama-frontend/src/app/components/modal/modal.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../planorama-frontend/src/app/components/modal/modal.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../planorama-frontend/src/app/components/nav/nav.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../planorama-frontend/src/app/components/nav/nav.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../planorama-frontend/src/app/components/nav/nav.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../planorama-frontend/src/app/components/nav/nav.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../planorama-frontend/src/app/schedule/members/domain/member.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../planorama-frontend/src/app/schedule/members/domain/member_request.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../planorama-frontend/src/app/schedule/members/domain/member_request.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../planorama-frontend/src/app/schedule/members/domain/member_response.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../planorama-frontend/src/app/schedule/members/domain/member_response.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../planorama-frontend/src/app/schedule/members/domain/member_schedule.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../planorama-frontend/src/app/schedule/members/members.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../planorama-frontend/src/app/schedule/members/members.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../planorama-frontend/src/app/schedule/members/members.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../planorama-frontend/src/app/schedule/members/members.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../planorama-frontend/src/app/schedule/members/service/member.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../planorama-frontend/src/app/schedule/members/service/member.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../planorama-frontend/src/app/schedule/schedule-name/schedule-name.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../planorama-frontend/src/app/schedule/schedule-name/schedule-name.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../planorama-frontend/src/app/schedule/schedule-name/service/schedule.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../planorama-frontend/src/app/schedule/schedule-name/service/schedule.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../planorama-frontend/src/app/schedule/schedule.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../planorama-frontend/src/app/schedule/schedule.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../planorama-frontend/src/assets/i18n/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/../planorama-frontend/src/assets/i18n/en.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../planorama-frontend/src/assets/i18n/label.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../planorama-frontend/src/assets/i18n/label.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../planorama-frontend/src/assets/i18n/pt.json" beforeDir="false" afterPath="$PROJECT_DIR$/../planorama-frontend/src/assets/i18n/pt.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,16 +52,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/T-GAMER/Videos/Congresso/planorama/caption&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "last_opened_file_path": "C:/Users/T-GAMER/Videos/Congresso/planorama/schedules"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\T-GAMER\Videos\Congresso\planorama\caption\src\main\java\com\planorama" />
       <recent name="C:\Users\T-GAMER\Videos\Congresso\planorama\caption\src\main\java\com\planorama\service" />
       <recent name="C:\Users\T-GAMER\Videos\Congresso\planorama\caption\src\main\java\com\planorama\controller" />
     </key>
