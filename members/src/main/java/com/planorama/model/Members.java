@@ -12,7 +12,7 @@ public class Members {
 
     private String id;
     private String ownerId;
-    private String userId;
+    private User user;
     private Schedule schedule;
     private String email;
     private MemberType memberType;

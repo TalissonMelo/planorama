@@ -22,7 +22,7 @@ public class PutMembersController {
 
         service.execute(request);
 
-        return ResponseEntity.status(201).body(null);
+        return ResponseEntity.status(200).body(null);
 
     }
 }

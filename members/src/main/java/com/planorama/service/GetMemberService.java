@@ -2,6 +2,7 @@ package com.planorama.service;
 
 import com.planorama.model.Members;
 import com.planorama.model.Schedule;
+import com.planorama.model.User;
 import com.planorama.model.enums.MemberType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,8 +19,8 @@ public class GetMemberService {
 
         Members member1 = new Members();
         member1.setId("1");
-        member1.setOwnerId("user_001");
-        member1.setUserId(UUID.randomUUID().toString());
+        member1.setOwnerId(UUID.randomUUID().toString());
+        member1.setUser(new User(UUID.randomUUID().toString(), "user_001", "user1@example.com"));
         member1.setEmail("user1@example.com");
         member1.setSchedule(new Schedule(scheduleId, "Morning Yoga"));
         member1.setMemberType(MemberType.VIEWER);
@@ -28,8 +29,8 @@ public class GetMemberService {
 
         Members member2 = new Members();
         member2.setId("2");
-        member2.setOwnerId("user_002");
-        member2.setUserId(UUID.randomUUID().toString());
+        member2.setOwnerId(UUID.randomUUID().toString());
+        member2.setUser(new User(UUID.randomUUID().toString(), "user_002", "user2@example.com"));
         member2.setEmail("user2@example.com");
         member2.setSchedule(new Schedule(scheduleId, "Evening Pilates"));
         member2.setMemberType(MemberType.VIEWER);
