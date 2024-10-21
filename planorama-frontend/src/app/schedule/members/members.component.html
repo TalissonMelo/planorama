@@ -7,17 +7,20 @@
         <div class="form-group row">
             <div class="col-sm-8">
                 <label for="email"> {{ label.email | translate}}</label>
-                <input type="email" id="email" name="email" class="my-custom-form-control form-control" [(ngModel)]="member.email" required>
+                <input type="email" id="email" name="email" class="my-custom-form-control form-control"
+                    [(ngModel)]="member.email" required>
             </div>
             <div class="col-sm-4">
                 <label for="type">{{ label.permissoes | translate}}</label>
-                <select id="type" name="type" class="my-custom-form-control form-control"  [(ngModel)]="member.memberType" required>
+                <select id="type" name="type" class="my-custom-form-control form-control"
+                    [(ngModel)]="member.memberType" required>
                     <option value="EDITOR">{{ label.editar | translate}}</option>
                     <option value="VIEWER">{{ label.visualizar | translate}}</option>
                 </select>
-            </div>           
+            </div>
         </div>
-        <button type="button" (click)="save()" class="btn btn-primary btn-block w-100 text-center mt-3">{{ label.adicionar_membro | translate}}</button>
+        <button type="button" (click)="save()" class="btn btn-primary btn-block w-100 text-center mt-3">{{
+            label.adicionar_membro | translate}}</button>
     </div>
 </div>
 <div class="container mt-3">
@@ -27,6 +30,7 @@
                 <tr>
                     <th class="col-4"> {{ label.nome | translate}}</th>
                     <th class="col-3"> {{ label.email | translate}}</th>
+                    <th class="col-2 text-center ">{{ label.aceito | translate}}</th>
                     <th class="col-2">{{ label.permissoes | translate}}</th>
                     <th class="col-1"></th>
                 </tr>
@@ -35,18 +39,27 @@
                 <tr *ngFor="let member of members">
                     <td class="col-4 action-icons">{{ member.user.name }}</td>
                     <td class="col-3 action-icons">{{ member.user.email }}</td>
-                    <td class="col-2 action-icons">
+                    <td class="col-2 text-center action-icons align-middle">
+                        <button *ngIf="member.accept" mat-icon-button color="primary">
+                            <mat-icon>check_circle</mat-icon>
+                        </button>
+                        <button *ngIf="!member.accept" mat-icon-button color="warn">
+                            <mat-icon>cancel</mat-icon>
+                        </button>
+                    </td>
+                    <td *ngIf="member.memberType !== memberType.EDITOR" class="col-2 action-icons">
                         <select id="type" name="type" class="my-custom-form-control form-control action-icons"
-                            [value]="member.memberType" disabled>
-                            <option value="EDITOR">{{ label.editar | translate}}</option>
-                            <option value="VIEWER">{{ label.visualizar | translate}}</option>
+                            [value]="member.memberType" (change)="onMemberTypeChange($event, member)">
+                            <option value="EDITOR">{{ label.editar | translate }}</option>
+                            <option value="VIEWER">{{ label.visualizar | translate }}</option>
                         </select>
                     </td>
-                    <!-- *ngIf="member.memberType === memberType.EDITOR" -->
+                    <td *ngIf="member.memberType === memberType.EDITOR" class="col-2 action-icons">{{ member.memberType
+                        }}</td>
                     <td class="col-1 text-center action-icons align-middle">
                         <button mat-icon-button color="warn" (click)="deletarMembro(member)">
                             <mat-icon>delete</mat-icon>
-                          </button>
+                        </button>
                     </td>
                 </tr>
             </tbody>

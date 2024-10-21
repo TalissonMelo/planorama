@@ -41,6 +41,6 @@ export class NavComponent {
   }
 
   openInvites(): void {
-    this.router.navigate(['/members']);
+    this.router.navigate(['/invites']);
   }
 }

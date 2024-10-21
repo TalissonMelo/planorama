@@ -6,9 +6,9 @@ export class MemberResponse {
   public user!: UserMember;
   public schedule!: ScheduleMember;
   public email!: string;
-  public memberType!: MemberType;
+  public memberType: MemberType = MemberType.VIEWER;
   public active!: boolean;
-  public accept!: false;
+  public accept!: boolean;
 }
 
 export class UserMember {

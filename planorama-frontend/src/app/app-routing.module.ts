@@ -59,6 +59,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('./patients/patients.module').then((p) => p.PatientsModule),
       },
+      {
+        path: 'invites',
+        loadChildren: () =>
+          import('./invites/invites.module').then((i) => i.InvitesModule),
+      },
 
       {
         path: 'video',
@@ -81,6 +86,11 @@ const routes: Routes = [
       import('./recover/recover-password.module').then(
         (r) => r.RecoverPasswordModule
       ),
+  },
+  {
+    path: 'invites',
+    loadChildren: () =>
+      import('./invites/invites.module').then((m) => m.InvitesModule),
   },
 ];
 

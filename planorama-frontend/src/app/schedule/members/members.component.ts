@@ -117,4 +117,17 @@ export class MembersComponent implements OnInit {
       );
     }
   }
+
+  onMemberTypeChange(newType: any, member: any) {
+    this.loaderService.show();
+    this.service.memberType(member.id, newType.target.value).subscribe(
+      (res) => {
+        member.memberType = newType.target.value;
+        this.loaderService.hide();
+      },
+      (error) => {
+        this.loaderService.hide();
+      }
+    );
+  }
 }

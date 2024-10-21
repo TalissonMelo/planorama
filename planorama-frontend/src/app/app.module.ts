@@ -50,6 +50,7 @@ import { MembersComponent } from './schedule/members/members.component';
 import { ScheduleNameComponent } from './schedule/schedule-name/schedule-name.component';
 import { TokenInterceptor } from './token.interceptor';
 import { UseSession } from './util/useSession';
+import { DocumentModule } from './components/document/document.module';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -98,6 +99,7 @@ registerLocaleData(localePt);
     MatInputModule,
     MatNativeDateModule,
     TranslateModule,
+    DocumentModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,

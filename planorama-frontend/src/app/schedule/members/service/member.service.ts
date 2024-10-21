@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UseSession } from 'src/app/util/useSession';
 import { environment } from 'src/environments/environment';
-import { MemberRequest } from '../domain/member_request';
+import { MemberRequest, MemberType } from '../domain/member_request';
 import { MemberResponse } from '../domain/member_response';
 
 @Injectable({
@@ -37,6 +37,33 @@ export class MemberService {
     member.ownerId = this.useSession.getUser().id;
     return this.http.post<MemberResponse>(
       `${environment.url}/members/schedules`,
+      member
+    );
+  }
+
+  listSchedules(): Observable<MemberResponse[]> {
+    const memberId: string = this.useSession.getUser().id;
+    return this.http.get<MemberResponse[]>(
+      `${environment.url}/members/${memberId}/schedule`
+    );
+  }
+
+  accept(member: MemberResponse): Observable<MemberResponse> {
+    let accept = {
+      accept: member.accept == true ? false : true,
+    };
+    return this.http.put<MemberResponse>(
+      `${environment.url}/members/${member.id}`,
+      accept
+    );
+  }
+
+  memberType(memberId: string, type: MemberType): Observable<MemberResponse> {
+    let member = {
+      memberType: type,
+    };
+    return this.http.put<MemberResponse>(
+      `${environment.url}/members/${memberId}`,
       member
     );
   }

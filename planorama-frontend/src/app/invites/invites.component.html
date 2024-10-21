@@ -1,0 +1,38 @@
+<div class="container">
+    <div class="back-link" routerLink="/">
+        <mat-icon>arrow_back</mat-icon> {{ label.voltar | translate}}
+    </div>
+</div>
+<div class="container mt-3">
+    <div class="table-responsive">
+        <table class="table schedule-table">
+            <thead>
+                <tr>
+                    <th class="col-6"> {{ label.agenda | translate}}</th>
+                    <th class="col-2">{{ label.permissoes | translate}}</th>
+                    <th class="col-2 text-center">{{ label.aceito | translate}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let member of members">
+                    <td class="col-6 action-icons">{{ member.schedule.name }}</td>
+                    <td class="col-2 action-icons">
+                        <select id="type" name="type" class="my-custom-form-control form-control action-icons"
+                            [value]="member.memberType" disabled>
+                            <option value="EDITOR">{{ label.editar | translate}}</option>
+                            <option value="VIEWER">{{ label.visualizar | translate}}</option>
+                        </select>
+                    </td>
+                    <td class="col-2 text-center action-icons align-middle">
+                        <button *ngIf="member.accept"  mat-icon-button color="primary">
+                            <mat-icon>check_circle</mat-icon>
+                        </button>
+                        <button *ngIf="!member.accept" mat-icon-button color="warn" (click)="accept(member)">
+                            <mat-icon>cancel</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
