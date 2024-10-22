@@ -31,7 +31,7 @@ export class LegendComponent implements OnInit {
     { name: 'Amarelo', hex: '#FFFFE0' },
     { name: 'Roxo', hex: '#DA70D6' },
     { name: 'Verde água', hex: '#20B2AA' },
-    { name: 'Tomato', hex: '#FF6347' },
+    { name: 'Tomato', hex: '#FF9347' },
     { name: 'Peach Puff', hex: '#FFDAB9' },
   ];
 
