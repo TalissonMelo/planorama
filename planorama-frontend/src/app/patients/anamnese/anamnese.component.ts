@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-anamnese',
@@ -11,50 +10,48 @@ export class AnamneseComponent implements OnInit {
 
   novaPergunta = {
     enunciado: '',
-    tipo: 'TEXTO',
+    tipo: 'RESPOSTA_CURTA',
     opcoes: '',
   };
-
-  constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.perguntas = [
       {
         id: '7',
         enunciado: 'Qual é o seu principal motivo para a consulta?',
-        tipo: 'TEXTO',
+        tipo: 'RESPOSTA_CURTA',
         opcoes: [],
       },
       {
         id: '8',
         enunciado: 'Descreva os sintomas que você está sentindo:',
-        tipo: 'TEXTO',
+        tipo: 'RESPOSTA_CURTA',
         opcoes: [],
       },
       {
         id: '9',
         enunciado: 'Quando os sintomas começaram?',
-        tipo: 'TEXTO',
+        tipo: 'RESPOSTA_CURTA',
         opcoes: [],
       },
       {
         id: '10',
         enunciado:
           'Qual é a intensidade dos seus sintomas? (Ex: leve, moderado, severo)',
-        tipo: 'TEXTO',
+        tipo: 'RESPOSTA_CURTA',
         opcoes: [],
       },
       {
         id: '11',
         enunciado: 'Há doenças conhecidas em sua família? Se sim, quais?',
-        tipo: 'TEXTO',
+        tipo: 'RESPOSTA_CURTA',
         opcoes: [],
       },
       {
         id: '12',
         enunciado:
           'Como você descreveria seus hábitos alimentares? (Ex: balanceados, irregulares, etc.)',
-        tipo: 'TEXTO',
+        tipo: 'RESPOSTA_CURTA',
         opcoes: [],
       },
       {
@@ -79,27 +76,27 @@ export class AnamneseComponent implements OnInit {
         id: '16',
         enunciado:
           'Como você descreveria sua situação socioeconômica? (Ex: estável, instável, etc.)',
-        tipo: 'TEXTO',
+        tipo: 'RESPOSTA_CURTA',
         opcoes: [],
       },
       {
         id: '17',
         enunciado:
           'Tem alguma coisa que possa estar mantendo você assim ou piorando sua situação?',
-        tipo: 'TEXTO',
+        tipo: 'RESPOSTA_CURTA',
         opcoes: [],
       },
       {
         id: '18',
         enunciado:
           'Como você pensa que essas sessões podem ajudar no seu problema?',
-        tipo: 'TEXTO',
+        tipo: 'RESPOSTA_CURTA',
         opcoes: [],
       },
       {
         id: '19',
         enunciado: 'Qual sua expectativa com este tratamento?',
-        tipo: 'TEXTO',
+        tipo: 'RESPOSTA_CURTA',
         opcoes: [],
       },
       {
@@ -119,7 +116,8 @@ export class AnamneseComponent implements OnInit {
         enunciado: this.novaPergunta.enunciado,
         tipo: this.novaPergunta.tipo,
         opcoes:
-          this.novaPergunta.tipo === 'MULTIPLA_ESCOLHA'
+          this.novaPergunta.tipo === 'MULTIPLA_ESCOLHA' ||
+          this.novaPergunta.tipo === 'CAIXAS_SELECAO'
             ? this.novaPergunta.opcoes.split(',').map((op) => op.trim())
             : [],
       });
@@ -132,17 +130,12 @@ export class AnamneseComponent implements OnInit {
   resetNovaPergunta(): void {
     this.novaPergunta = {
       enunciado: '',
-      tipo: 'TEXTO',
+      tipo: 'RESPOSTA_CURTA',
       opcoes: '',
     };
   }
 
   deletePergunta(index: number): void {
     this.perguntas.splice(index, 1);
-  }
-
-  saveAnamnese(): void {
-    console.log(this.perguntas);
-    alert('Perguntas salvas com sucesso!');
   }
 }

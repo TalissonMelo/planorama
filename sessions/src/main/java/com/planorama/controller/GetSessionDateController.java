@@ -18,7 +18,7 @@ public class GetSessionDateController {
     private final GetSessionDateService service;
 
     @CrossOrigin(origins = "*")
-    @GetMapping("session/schedule/{scheduleId}")
+    @GetMapping("sessions/schedules/{scheduleId}")
     public ResponseEntity<List<SessionResponse>> execute(@PathVariable String scheduleId,
                                                          @RequestHeader(value = "timezone", required = true) String timezone,
                                                          @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {

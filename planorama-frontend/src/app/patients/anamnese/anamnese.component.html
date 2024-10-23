@@ -15,13 +15,18 @@
                     <div class="mb-3">
                         <label class="form-label">Tipo de Pergunta:</label>
                         <select class="form-select" [(ngModel)]="novaPergunta.tipo">
-                            <option value="TEXTO">Texto</option>
-                            <option value="NUMERICO">Numérico</option>
+                            <option value="RESPOSTA_CURTA">Resposta Curta</option>
+                            <option value="NUMERICO">Número</option>
+                            <option value="PARAGRAFO">Parágrafo</option>
                             <option value="MULTIPLA_ESCOLHA">Múltipla Escolha</option>
+                            <option value="CAIXAS_SELECAO">Caixas de Seleção</option>
+                            <option value="LIST_ITEM">Horario</option>
+                            <option value="DATA">Data</option>
                         </select>
                     </div>
 
-                    <div class="mb-3" *ngIf="novaPergunta.tipo === 'MULTIPLA_ESCOLHA'">
+                    <div class="mb-3"
+                        *ngIf="novaPergunta.tipo === 'MULTIPLA_ESCOLHA' || novaPergunta.tipo === 'CAIXAS_SELECAO'">
                         <label class="form-label">Opções (separadas por vírgula):</label>
                         <input type="text" class="form-control" [(ngModel)]="novaPergunta.opcoes"
                             placeholder="Ex: Sim, Não, Talvez" />
@@ -35,6 +40,7 @@
                 </div>
             </div>
         </div>
+
         <div class="col-md-6">
             <div class="card mb-4">
                 <div class="card-header">
@@ -45,19 +51,39 @@
                         <div class="form-group mb-3 d-flex align-items-center">
                             <div class="flex-grow-1">
                                 <label class="form-label">{{ pergunta.enunciado }}</label>
-                                <input *ngIf="pergunta.tipo === 'TEXTO'" type="text" class="form-control"
-                                    placeholder="Digite sua resposta aqui" />
-                                <input *ngIf="pergunta.tipo === 'NUMERICO'" type="number" class="form-control"
-                                    placeholder="Digite um número" />
+
+                                <input *ngIf="pergunta.tipo === 'RESPOSTA_CURTA'" type="text" class="form-control"
+                                    placeholder="Digite sua resposta" />
+
+                                <textarea *ngIf="pergunta.tipo === 'PARAGRAFO'" class="form-control" rows="4"
+                                    placeholder="Escreva um parágrafo"></textarea>
+
                                 <select *ngIf="pergunta.tipo === 'MULTIPLA_ESCOLHA'" class="form-select">
                                     <option value="" disabled>Selecione uma opção</option>
                                     <option *ngFor="let opcao of pergunta.opcoes" [value]="opcao">{{ opcao }}</option>
                                 </select>
+
+                                <div *ngIf="pergunta.tipo === 'CAIXAS_SELECAO'">
+                                    <div *ngFor="let opcao of pergunta.opcoes">
+                                        <input type="checkbox" [id]="opcao" [value]="opcao" />
+                                        <label [for]="opcao">{{ opcao }}</label>
+                                    </div>
+                                </div>
+
+                                <input *ngIf="pergunta.tipo === 'LIST_ITEM'" type="time" class="form-control"
+                                    placeholder="Digite um item da lista" />
+
+                                <input *ngIf="pergunta.tipo === 'DATA'" type="date" class="form-control" />
+
+                                <input *ngIf="pergunta.tipo === 'NUMERICO'" type="number" class="form-control"  min="0" />
+
                             </div>
+
                             <button type="button" class="btn btn-danger btn-sm ms-2 mt-4" (click)="deletePergunta(i)">
                                 <i class="bi bi-trash"></i>
                             </button>
                         </div>
+
                         <div class="row">
                             <hr style="border: 1px solid #ccc; margin: 20px 0;">
                         </div>

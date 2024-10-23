@@ -1,6 +1,7 @@
 package com.planorama.service;
 
 import com.planorama.controller.request.SessionRequest;
+import com.planorama.controller.response.SessionResponse;
 import com.planorama.domain.Session;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -16,7 +18,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PostSessionService {
 
-    public List<Session> execute(String userId, SessionRequest request, String timezone) {
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+    public List<SessionResponse> execute(String userId, SessionRequest request, String timezone) {
 
         ZoneId requestZone = ZoneId.of(timezone);
         ZoneId systemZone = ZoneId.systemDefault();
@@ -28,7 +31,7 @@ public class PostSessionService {
         }
 
         if (!request.daysOfWeeks().isEmpty()) {
-            List<Session> sessions = new ArrayList<>();
+            List<SessionResponse> sessions = new ArrayList<>();
             for (LocalDate data = request.startTime().toLocalDate();
                  !data.isAfter(request.endTime().toLocalDate());
                  data = data.plusDays(1)) {
@@ -42,13 +45,17 @@ public class PostSessionService {
                             .atZone(requestZone)
                             .withZoneSameInstant(systemZone);
 
-                    Session session = Session.to(userId,
+                    String formattedStartTime = startZoned.format(FORMATTER);
+                    String formattedEndTime = finishZoned.format(FORMATTER);
+
+                    SessionResponse session = new SessionResponse(userId,
+                            request.scheduleId(),
+                            userId,
                             request.title(),
-                            startZoned.toLocalDateTime(),
-                            finishZoned.toLocalDateTime(),
+                            formattedStartTime,
+                            formattedEndTime,
                             request.description(),
                             request.captions(),
-                            request.scheduleId(),
                             request.patient()
                     );
 
@@ -62,13 +69,17 @@ public class PostSessionService {
         ZonedDateTime startZoned = request.startTime().atZone(requestZone).withZoneSameInstant(systemZone);
         ZonedDateTime finishZoned = request.endTime().atZone(requestZone).withZoneSameInstant(systemZone);
 
-        Session session = Session.to(userId,
+        String formattedStartTime = startZoned.format(FORMATTER);
+        String formattedEndTime = finishZoned.format(FORMATTER);
+
+        SessionResponse session = new SessionResponse(userId,
+                request.scheduleId(),
+                userId,
                 request.title(),
-                startZoned.toLocalDateTime(),
-                finishZoned.toLocalDateTime(),
+                formattedStartTime,
+                formattedEndTime,
                 request.description(),
                 request.captions(),
-                request.scheduleId(),
                 request.patient()
         );
 

@@ -19,7 +19,7 @@ Resources:
         ProxyResource:
           Type: Api
           Properties:
-            Path: /{proxy+}
+            Path: /sessions/{proxy+}
             Method: any
 
 Outputs:
