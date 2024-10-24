@@ -10,6 +10,7 @@ import { UseSession } from '../util/useSession';
 import { TokenInterceptor } from '../token.interceptor';
 import { PhoneModule } from '../components/phone/phone.module';
 import { TranslateModule } from '@ngx-translate/core';
+import { DocumentModule } from '../components/document/document.module';
 
 @NgModule({
   declarations: [ProfileComponent],
@@ -19,6 +20,7 @@ import { TranslateModule } from '@ngx-translate/core';
     FormsModule,
     ReactiveFormsModule,
     PasswordModule,
+    DocumentModule,
     HttpClientModule,
     PhoneModule,
     TranslateModule,

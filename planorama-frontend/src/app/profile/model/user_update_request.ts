@@ -1,9 +1,9 @@
 export class UserUpdateRequest {
-  public nickname!: string;
+  public id!: string;
+  public userId!: string;
+  public email!: string;
   public phone!: string;
-
-  constructor(nickname: string, phone: string) {
-    this.nickname = nickname;
-    this.phone = phone;
-  }
+  public document!: string;
+  public nickname!: string;
+  public name!: string;
 }

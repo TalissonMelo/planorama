@@ -5,27 +5,27 @@
       <h2>Perfil</h2>
       <div class="form-group">
         <label for="email">{{ label.email | translate }} </label>
-        <input type="email" id="email" name="email" class="my-custom-form-control" [(ngModel)]="useSession.getUser().email" required
+        <input type="email" id="email" name="email" class="my-custom-form-control" [(ngModel)]="user.email" required
           disabled />
       </div>
       <div class="form-group">
         <label for="nickname">{{ label.apelido | translate }}</label>
-        <input type="text" id="nickname" name="nickname" class="my-custom-form-control"
-          [(ngModel)]="useSession.getUser().nickname" required disabled/>
+        <input type="text" id="nickname" name="nickname" class="my-custom-form-control" [(ngModel)]="user.nickname"
+          required disabled />
       </div>
       <div class="form-group">
-        <label for="nickname">{{ label.nome | translate }}</label>
-        <input type="text" id="nickname" name="nickname" class="my-custom-form-control"
-          required/>
+        <label for="name">{{ label.nome | translate }}</label>
+        <input type="text" id="name" name="name" class="my-custom-form-control" [(ngModel)]="user.name" required />
       </div>
-      <div class="form-group">
-        <label for="nickname">{{ label.sobrenome | translate }}</label>
-        <input type="text" id="nickname" name="nickname" class="my-custom-form-control"
-          required/>
+      <div class="form-group mt-3">
+        <label for="name">{{ label.documento | translate }}</label>
+        <app-document id="document" [changeDocument]="user.document"
+          (documentChange)="user.document = $event"></app-document>
       </div>
-      <app-phone [id]="'phone'" [changePhone]="phone" (phoneChange)="phone = $event"
-        required></app-phone>
-      <button type="submit" class="my-custom-ok-button mt-3" >{{ label.alterar_dados | translate }}</button>
+      <div class="form-group mt-3">
+        <app-phone [id]="'phone'" [changePhone]="user.phone" (phoneChange)="user.phone = $event" required></app-phone>
+      </div>
+      <button type="submit" (click)="onSubmit()" class="my-custom-ok-button mt-4">{{ label.alterar_dados | translate }}</button>
     </div>
     <div class="col-sm-2"></div>
   </div>

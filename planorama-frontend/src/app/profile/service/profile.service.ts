@@ -1,9 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { ChangePasswordRequest } from '../model/change_password_request';
 import { UseSession } from 'src/app/util/useSession';
+import { environment } from 'src/environments/environment';
 import { UserUpdateRequest } from '../model/user_update_request';
 @Injectable({
   providedIn: 'root',
@@ -15,22 +14,16 @@ export class ProfileService {
     this.useSession = new UseSession();
   }
 
-  changePassword(changePassword: ChangePasswordRequest): Observable<void> {
-    const changePasswordRequest: ChangePasswordRequest =
-      new ChangePasswordRequest(
-        btoa(changePassword.oldPassword),
-        btoa(changePassword.newPassword)
-      );
+  userUpdate(user: UserUpdateRequest): Observable<void> {
     return this.http.put<void>(
-      `${environment.uri}/v1/users/${this.useSession.getUser().id}/passwords`,
-      changePasswordRequest
+      `${environment.url}/users/${this.useSession.getUser().id}`,
+      user
     );
   }
 
-  userUpdate(user: UserUpdateRequest): Observable<void> {
-    return this.http.put<void>(
-      `${environment.uri}/v1/users/${this.useSession.getUser().id}`,
-      user
+  user(): Observable<UserUpdateRequest> {
+    return this.http.get<UserUpdateRequest>(
+      `${environment.url}/users/${this.useSession.getUser().id}`
     );
   }
 }

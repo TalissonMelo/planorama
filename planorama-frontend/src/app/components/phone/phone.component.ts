@@ -12,7 +12,7 @@ export class PhoneComponent {
   selectedCountryCode: string = '+55';
   selectedMaskAndPlaceholder: string = '(00) 0 0000-0000';
 
-  constructor(public translate: TranslateService) { }
+  constructor(public translate: TranslateService) {}
 
   countryCodes: Array<{ name: string; code: string }> = [
     { name: 'Brazil', code: '+55' },
@@ -38,5 +38,4 @@ export class PhoneComponent {
       this.selectedMaskAndPlaceholder = '(000) 000-0000';
     }
   }
-  
 }

@@ -4,6 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DocumentComponent } from './document.component';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { TranslateModule } from '@ngx-translate/core';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [DocumentComponent],
@@ -14,6 +16,8 @@ import { TranslateModule } from '@ngx-translate/core';
     NgxMaskDirective,
     NgxMaskPipe,
     TranslateModule,
+    MatSelectModule,
+    MatFormFieldModule,
   ],
   exports: [DocumentComponent],
   providers: [provideNgxMask()],

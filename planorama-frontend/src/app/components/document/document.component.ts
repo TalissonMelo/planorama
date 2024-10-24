@@ -24,8 +24,8 @@ export class DocumentComponent implements OnInit {
     this.documentChange.emit(this.changeDocument);
   }
 
-  onDocumentTypeChange(type: 'CPF' | 'CNPJ') {
-    this.documentType = type;
+  onDocumentTypeChange(type: any) {
+    this.documentType = type.target.value;
     this.updateMask();
   }
 

@@ -95,6 +95,7 @@ const label = {
   pacientes: 'pacientes',
   convites: 'convites',
   aceito: 'aceito',
+  documento: 'documento',
 };
 
 export default label;

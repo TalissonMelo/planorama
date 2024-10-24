@@ -78,7 +78,6 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     this.listSessions(date.getMonth() + 1, date.getFullYear());
     this.start = this.useSession.toNumber(this.schedule.startTime);
     this.finish = this.useSession.toNumberAddHour(this.schedule.endTime);
-    this.listMember();
   }
 
   listMember(): void {
@@ -93,6 +92,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     this.loaderService.show();
     this.sessionService.sessions(this.schedule.id, month, year).subscribe(
       (res) => {
+        this.listMember();
         this.events = res;
         this.captions = res.map((r) => r.caption);
         this.loaderService.hide();
