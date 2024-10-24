@@ -1,22 +1,20 @@
 import { Component, LOCALE_ID, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { CalendarView } from 'angular-calendar';
 import { Subject, Subscription } from 'rxjs';
+import label from 'src/assets/i18n/label';
+import { ChatComponent } from '../chat/chat.component';
 import { LoaderService } from '../components/loader/loader.service';
+import { Captions } from '../components/modal/domain/captions';
 import { ModalComponent } from '../components/modal/modal.component';
 import { SessionService } from '../components/modal/service/session.service';
-import { LegendResponse } from '../legend/domain/legend_response';
-import { LegendService } from '../legend/service/legend.service';
+import { NotificationEmitter } from '../components/notification/notification_emitter';
 import { UseSession } from '../util/useSession';
+import { MemberResponse } from './members/domain/member_response';
 import { MemberService } from './members/service/member.service';
 import { ScheduleResponse } from './schedule-name/domain/schedule_response';
-import { NotificationEmitter } from '../components/notification/notification_emitter';
-import { addHours, startOfDay } from 'date-fns';
-import { ChatComponent } from '../chat/chat.component';
-import label from 'src/assets/i18n/label';
-import { TranslateService } from '@ngx-translate/core';
-import { MemberResponse } from './members/domain/member_response';
 
 export function localeFactory(translate: TranslateService) {
   return translate.getDefaultLang() === 'pt'
@@ -38,80 +36,14 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   view: CalendarView = CalendarView.Month;
   CalendarView = CalendarView;
   viewDate: Date = new Date();
-
-  // events: any[] = [];
-
-  to(date: Date, hours: number, minutes: number) {
-    return new Date(
-      date.getTime() + hours * 60 * 60 * 1000 + minutes * 60 * 1000
-    );
-  }
-
-  events: any[] = [
-    {
-      id: 1,
-      start: this.to(startOfDay(new Date()), 9, 30),
-      end: addHours(startOfDay(new Date()), 10),
-      title: 'Reunião da Manhã',
-      color: { primary: '#1e90ff', secondary: '#d1e8ff' },
-    },
-    {
-      id: 2,
-      start: addHours(startOfDay(new Date()), 12),
-      end: addHours(startOfDay(new Date()), 13),
-      title: 'Intervalo para Almoço',
-      color: { primary: '#e3bc08', secondary: '#fdf1ba' },
-    },
-    {
-      id: 3,
-      start: addHours(startOfDay(new Date()), 15),
-      end: addHours(startOfDay(new Date()), 16),
-      title:
-        'Chamada com Cliente /n Chamada com cliente para discutir requisitos.',
-      color: { primary: '#ad2121', secondary: '#fae3e3' },
-    },
-    {
-      id: 4,
-      start: addHours(startOfDay(new Date()), 18),
-      end: addHours(startOfDay(new Date()), 19),
-      title: 'Talisson do Dia',
-      color: { primary: '#000', secondary: '#000' },
-    },
-  ];
+  events: any[] = [];
 
   public start!: number;
   public finish!: number;
   public useSession: UseSession;
   public schedule!: ScheduleResponse;
   public memberSchedule!: MemberResponse;
-  // public legends: LegendResponse[] = [];
-
-  legends: LegendResponse[] = [
-    {
-      id: 'legend1',
-      color: '#FF5733',
-      ownerId: 'owner123',
-      description: 'Important meetings',
-    },
-    {
-      id: 'legend2',
-      color: '#33FF57',
-      ownerId: 'owner456',
-      description: 'Team sync-ups',
-    },
-    {
-      id: 'legend3',
-      color: '#3357FF',
-      ownerId: 'owner789',
-      description: 'Project deadlines',
-    },
-    {
-      id: 'legend4',
-      color: '#FFD700',
-      ownerId: 'owner1011',
-      description: 'Personal time',
-    },
-  ];
+  public captions: Captions[] = [];
 
   refresh: Subject<void> = new Subject<void>();
   activeDayIsOpen: boolean = true;
@@ -121,7 +53,6 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     private notificationService: NotificationEmitter,
     private translate: TranslateService,
     private sessionService: SessionService,
-    private legendService: LegendService,
     private loaderService: LoaderService,
     private memberService: MemberService,
     public dialog: MatDialog
@@ -130,11 +61,11 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     this.schedule = this.useSession.getScheduleId();
   }
   ngOnInit(): void {
-    // this.listInit();
-    // this.notificationSubscription =
-    //   this.notificationService.notificationEmitter.subscribe((message) => {
-    //     this.listInit();
-    //   });
+    this.listInit();
+    this.notificationSubscription =
+      this.notificationService.notificationEmitter.subscribe((message) => {
+        this.listInit();
+      });
   }
 
   get defaultLang() {
@@ -145,9 +76,8 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     this.schedule = this.useSession.getScheduleId();
     const date: Date = new Date();
     this.listSessions(date.getMonth() + 1, date.getFullYear());
-    //  this.start = this.useSession.toNumber(this.schedule.startTime);
-    //this.finish = this.useSession.toNumberAddHour(this.schedule.endTime);
-    this.listLegends();
+    this.start = this.useSession.toNumber(this.schedule.startTime);
+    this.finish = this.useSession.toNumberAddHour(this.schedule.endTime);
     this.listMember();
   }
 
@@ -159,24 +89,12 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     });
   }
 
-  listLegends(): void {
-    this.loaderService.show();
-    // this.legendService.legendBySchedule(this.schedule.id).subscribe(
-    //   (res) => {
-    //     this.legends = res;
-    //     this.loaderService.hide();
-    //   },
-    //   (error) => {
-    //     this.loaderService.hide();
-    //   }
-    // );
-  }
-
   listSessions(month: number, year: number): void {
     this.loaderService.show();
     this.sessionService.sessions(this.schedule.id, month, year).subscribe(
       (res) => {
         this.events = res;
+        this.captions = res.map((r) => r.caption);
         this.loaderService.hide();
       },
       (error) => {
@@ -210,16 +128,14 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   }
 
   openModal(day: { date: Date }): void {
-    this.dialog.open(ModalComponent);
-
-    // if (this.memberSchedule.type != 'VIEWER') {
-    //   this.useSession.setDate(day);
-    //   this.useSession.setScheduleId(this.schedule);
-    //   this.dialog.open(ModalComponent);
-    // } else {
-    //   this.viewDate = day.date;
-    //   this.view = CalendarView.Day;
-    // }
+    if (this.memberSchedule.memberType.toString() != 'VIEWER') {
+      this.useSession.setDate(day);
+      this.useSession.setScheduleId(this.schedule);
+      this.dialog.open(ModalComponent);
+    } else {
+      this.viewDate = day.date;
+      this.view = CalendarView.Day;
+    }
   }
 
   onEventClicked(event: any): void {

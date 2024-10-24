@@ -1,20 +1,20 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
 import { LegendResponse } from 'src/app/legend/domain/legend_response';
 import { LegendService } from 'src/app/legend/service/legend.service';
+import { MemberResponse } from 'src/app/schedule/members/domain/member_response';
 import { MemberService } from 'src/app/schedule/members/service/member.service';
 import { ScheduleResponse } from 'src/app/schedule/schedule-name/domain/schedule_response';
 import { UseSession } from 'src/app/util/useSession';
+import label from 'src/assets/i18n/label';
 import { LoaderService } from '../loader/loader.service';
 import { NotificationService } from '../notification/notification.service';
+import { NotificationEmitter } from '../notification/notification_emitter';
 import { SessionRequest } from './domain/session_request';
 import { SessionResponse } from './domain/session_response';
-import { SessionService } from './service/session.service';
 import { SessionUpdate } from './domain/session_update';
-import { NotificationEmitter } from '../notification/notification_emitter';
-import label from 'src/assets/i18n/label';
-import { TranslateService } from '@ngx-translate/core';
-import { MemberResponse } from 'src/app/schedule/members/domain/member_response';
+import { SessionService } from './service/session.service';
 
 @Component({
   selector: 'app-modal',
@@ -22,18 +22,18 @@ import { MemberResponse } from 'src/app/schedule/members/domain/member_response'
   styleUrls: ['./modal.component.css'],
 })
 export class ModalComponent implements OnInit {
-  dropdownOpen = false;
-  public label = label;
-  public dateNow: Date = new Date();
   public date: Date;
+  public label = label;
+  public dropdownOpen = false;
+  public useSession: UseSession;
+  public selectedDays: any[] = [];
+  public schedule: ScheduleResponse;
   public sessionIdEdit: string = '';
-  // public legends: LegendResponse[] = [];
+  public legends: LegendResponse[] = [];
   public events: SessionResponse[] = [];
   public sessionRequest: SessionRequest;
   public memberSchedule!: MemberResponse;
-  public schedule: ScheduleResponse;
-  public selectedDays: any[] = [];
-  public useSession: UseSession;
+  public isCreator: boolean = false;
 
   public daysOfWeeks =
     this.translate.getDefaultLang() === 'en'
@@ -56,34 +56,6 @@ export class ModalComponent implements OnInit {
           { label: 'Domingo', value: 'SUNDAY' },
         ];
 
-  legends: LegendResponse[] = [
-    {
-      id: 'legend1',
-      color: '#FF5733',
-      ownerId: 'owner123',
-      description:
-        'Geografia descrição e explicação de relevo e dados. Geografia descrição e explicação de relevo e dados',
-    },
-    {
-      id: 'legend2',
-      color: '#33FF57',
-      ownerId: 'owner456',
-      description: 'Team ups',
-    },
-    {
-      id: 'legend3',
-      color: '#3357FF',
-      ownerId: 'owner789',
-      description: 'Project',
-    },
-    {
-      id: 'legend4',
-      color: '#FFD700',
-      ownerId: 'owner1011',
-      description: 'Personal time',
-    },
-  ];
-
   constructor(
     private notificationService: NotificationService,
     private notificationEmitter: NotificationEmitter,
@@ -98,18 +70,27 @@ export class ModalComponent implements OnInit {
     this.useSession = new UseSession();
     this.date = this.useSession.getDate().date;
     this.schedule = this.useSession.getScheduleId();
+    this.isCreator = this.schedule.ownerId === this.useSession.getUser().id;
   }
 
   ngOnInit(): void {
-    // this.listMember();
-    // this.listLegends();
-    // this.listSessions();
+    this.listMember();
+    this.listLegends();
+    this.listSessions();
   }
 
   listMember(): void {
     this.loaderService.show();
     this.memberService.listMember(this.schedule.id).subscribe((res) => {
       this.memberSchedule = res;
+      this.loaderService.hide();
+    });
+  }
+
+  listLegends(): void {
+    this.loaderService.show();
+    this.legendService.legends().subscribe((res) => {
+      this.legends = res;
       this.loaderService.hide();
     });
   }
@@ -124,12 +105,6 @@ export class ModalComponent implements OnInit {
       });
   }
 
-  listLegends(): void {
-    this.legendService.legends().subscribe((res) => {
-      this.legends = res;
-    });
-  }
-
   close() {
     this.notificationEmitter.emitNotification('');
     this.dialogRef.close();
@@ -142,12 +117,12 @@ export class ModalComponent implements OnInit {
       this.loaderService.show();
       this.sessionService.save(this.sessionRequest).subscribe(
         (res) => {
+          this.ngOnInit();
           this.loaderService.hide();
           this.sessionRequest = new SessionRequest();
           this.notificationService.showSuccess(
             'Appointment registered successfully!'
           );
-          this.ngOnInit();
         },
         (error) => {
           this.loaderService.hide();
@@ -172,7 +147,7 @@ export class ModalComponent implements OnInit {
       return false;
     }
 
-    if (!this.sessionRequest.legendId) {
+    if (!this.sessionRequest.caption) {
       this.notificationService.showError('The legend cannot be null.');
       return false;
     }
@@ -239,13 +214,13 @@ export class ModalComponent implements OnInit {
   }
 
   selectLegend(legend: any) {
-    this.sessionRequest.legendId = legend.id;
+    this.sessionRequest.caption = legend;
     this.dropdownOpen = true;
   }
 
   getSelectedLegendDescription() {
     const selected = this.legends.find(
-      (legend) => legend.id === this.sessionRequest.legendId
+      (legend) => legend.id === this.sessionRequest.caption.id
     );
     return selected
       ? selected.description
@@ -256,7 +231,7 @@ export class ModalComponent implements OnInit {
 
   getSelectedLegendColor() {
     const selected = this.legends.find(
-      (legend) => legend.id === this.sessionRequest.legendId
+      (legend) => legend.id === this.sessionRequest.caption.id
     );
     return selected ? selected.color : 'transparent';
   }

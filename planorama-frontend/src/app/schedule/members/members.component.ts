@@ -15,7 +15,6 @@ import { MemberService } from './service/member.service';
 })
 export class MembersComponent implements OnInit {
   public members: MemberResponse[] = [];
-  public memberSchedule!: MemberResponse;
   public schedule: ScheduleResponse;
   public useSession: UseSession;
   public member: MemberRequest;
@@ -44,7 +43,7 @@ export class MembersComponent implements OnInit {
     this.loaderService.show();
     this.service.listMember(this.schedule.id).subscribe(
       (res) => {
-        this.memberSchedule = res;
+        this.members.push(res);
         this.loaderService.hide();
       },
       (error) => {
@@ -74,14 +73,12 @@ export class MembersComponent implements OnInit {
           this.member = new MemberRequest();
           this.members.push(res);
           this.loaderService.hide();
-          this.notificationService.showSuccess(
-            'Membro adicionado com sucesso!'
-          );
+          this.notificationService.showSuccess('Member added successfully!');
         },
         (error) => {
           this.loaderService.hide();
           this.notificationService.showError(
-            'Membro não cadastrado por favor tente novamente.'
+            'Member not registered please try again.'
           );
         }
       );
@@ -92,26 +89,24 @@ export class MembersComponent implements OnInit {
     if (this.member.email != null && this.member.memberType != null) {
       return true;
     }
-    this.notificationService.showError(
-      'Preencha todos os campos e tente novamente.'
-    );
+    this.notificationService.showError('Fill in all fields and try again.');
     return false;
   }
 
   deletarMembro(member: MemberResponse): void {
-    if (confirm('Deseja deletar o membro: ' + member.user.name)) {
+    if (confirm('Do you want to delete the member: ' + member.user.name)) {
       this.loaderService.show();
       this.service.delete(member.id).subscribe(
         (res) => {
           const index = this.members.indexOf(member);
           this.members.splice(index, 1);
           this.loaderService.hide();
-          this.notificationService.showSuccess('Membro deletada com sucesso!');
+          this.notificationService.showSuccess('Member deleted successfully!');
         },
         (error) => {
           this.loaderService.hide();
           this.notificationService.showError(
-            'Membro não deletada por favor tente novamente.'
+            'Member not deleted please try again.'
           );
         }
       );

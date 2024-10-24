@@ -8,7 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-add-session-modal',
   templateUrl: './add-session-modal.component.html',
-  styleUrls: ['./add-session-modal.component.css']
+  styleUrls: ['./add-session-modal.component.css'],
 })
 export class AddSessionModalComponent {
   dropdownOpen = false;
@@ -18,15 +18,14 @@ export class AddSessionModalComponent {
   session = {
     title: '',
     startTime: '',
-    endTime: ''
+    endTime: '',
   };
 
   constructor(
     public translate: TranslateService,
     public dialogRef: MatDialogRef<AddSessionModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
-  ) {
-  }
+  ) {}
 
   onSubmit(): void {
     this.dialogRef.close(this.session);
@@ -69,20 +68,24 @@ export class AddSessionModalComponent {
   }
 
   selectLegend(legend: any) {
-    this.sessionRequest.legendId = legend.id;
+    this.sessionRequest.caption = legend;
     this.dropdownOpen = true;
   }
 
   getSelectedLegendDescription() {
     const selected = this.legends.find(
-      (legend) => legend.id === this.sessionRequest.legendId
+      (legend) => legend.id === this.sessionRequest.caption.id
     );
-    return selected ? selected.description : this.translate.getDefaultLang() === "en" ? "Select a legend" : "Selecione uma legenda";
+    return selected
+      ? selected.description
+      : this.translate.getDefaultLang() === 'en'
+      ? 'Select a legend'
+      : 'Selecione uma legenda';
   }
 
   getSelectedLegendColor() {
     const selected = this.legends.find(
-      (legend) => legend.id === this.sessionRequest.legendId
+      (legend) => legend.id === this.sessionRequest.caption.id
     );
     return selected ? selected.color : 'transparent';
   }

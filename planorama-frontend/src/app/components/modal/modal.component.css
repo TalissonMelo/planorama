@@ -39,12 +39,16 @@
 }
 
 .fixed-width-modal {
-  width: 1000px; 
+  width: 1000px;
+  max-height: 80vh;  
+  overflow-y: auto; 
 }
+
+
 
 .dropdown {
   position: relative;
-  width: 100%; 
+  width: 100%;
 }
 
 .dropdown-menu {
@@ -52,8 +56,8 @@
   position: absolute;
   top: 100%;
   left: 0;
-  width: 100%; 
-  background: white; 
+  width: 100%;
+  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -72,19 +76,19 @@
 }
 
 .dropdown-item:hover {
-  background-color: #f1f1f1; 
+  background-color: #f1f1f1;
 }
 
 .color-circle {
   display: inline-block;
-  width: 16px; 
+  width: 16px;
   height: 16px;
   border-radius: 50%;
   margin-right: 10px;
 }
 
 .btn-light {
-  background-color: white !important; 
+  background-color: white !important;
   border: 1px solid #ddd;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -105,15 +109,47 @@
 }
 
 .legend-description {
-  display: inline-block; 
-  max-width: calc(100% - 35px); 
-  white-space: nowrap; 
-  overflow: hidden; 
-  text-overflow: ellipsis; 
-  vertical-align: middle; 
+  display: inline-block;
+  max-width: calc(100% - 35px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
 }
 
 .small-text {
   font-size: 11px;
   line-height: 1.0;
+}
+
+.table-container {
+  max-height: 300px;
+  overflow-y: auto;
+  margin-top: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.table-container table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.schedule-table thead th {
+  position: sticky;
+  top: 0;
+  background-color: #f8f9fa;
+  z-index: 1;
+  border-bottom: 2px solid #ddd;
+}
+
+.schedule-table th,
+.schedule-table td {
+  padding: 8px;
+  text-align: left;
+  border: 1px solid #dee2e6;
+}
+
+.schedule-table tbody tr:hover {
+  background-color: #f1f1f1;
 }

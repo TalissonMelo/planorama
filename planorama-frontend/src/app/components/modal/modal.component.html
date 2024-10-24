@@ -7,9 +7,7 @@
             </button>
         </div>
     </div>
-    <!-- <div *ngIf="memberSchedule?.type == 'CREATOR'" class="container mb-2"> -->
-    <div class="container mb-2">
-
+    <div *ngIf="isCreator || memberSchedule?.memberType?.toString() == 'EDITOR'" class="container mb-2">
         <div class="form-group row mt-2">
             <div class="col-sm-3">
                 <label for="startDate">{{ label.data_inicio | translate }}</label>
@@ -77,53 +75,45 @@
         <button type="button" class="my-custom-ok-button" (click)="addEvent()">Registrar Horário</button>
     </div>
     <div class="container">
-        <table class="table table-bordered schedule-table">
-            <thead>
-                <tr>
-                    <th class="col-2">{{ label.titulo | translate }}</th>
-                    <th class="col-1">{{ label.inicio | translate }}</th>
-                    <th class="col-1">{{ label.fim | translate }}</th>
-                    <th class="col-1">{{ label.legenda | translate }}</th>
-                    <th class="col-5">{{ label.descricao | translate }}</th>
-                    <th class="col-1"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let event of events">
-                    <td class="col-2">{{event.title}}</td>
-                    <td class="col-1">
-                        {{event.start| date: 'HH:mm:ss'}}
-                    </td>
-                    <td class="col-1">
-                        {{event.end | date: 'HH:mm:ss' }}
-                    </td>
-                    <td class="col-1" [style.background]="event.color.primary">
-                    </td>
-                    <td *ngIf="sessionIdEdit != event.id" class="col-5">
-                        {{event.description}}
-                    </td>
-                    <td *ngIf="sessionIdEdit == event.id" class="col-5">
-                        <input type="text" class="form-control" [(ngModel)]="event.description" id="description"
-                            name="description" />
-                    </td>
-                    <td class="col-1">
-                        <!-- *ngIf="sessionIdEdit != event.id && memberSchedule.memberType != 'VIEWER'" -->
-                        <button  mat-icon-button
-                            color="primary" (click)="edit(event)">
-                            <mat-icon>edit</mat-icon>
-                        </button>
-                        <!-- *ngIf="sessionIdEdit != event.id && memberSchedule.memberType == 'CREATOR'"  -->
-                        <button mat-icon-button
-                            color="warn" (click)="deleted(event)">
-                            <mat-icon>delete</mat-icon>
-                        </button>
-                        <button *ngIf="sessionIdEdit == event.id" mat-icon-button color="warn"
-                            (click)="editDescription(event)">
-                            <mat-icon>save</mat-icon>
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="table-container"> 
+            <table class="table table-bordered schedule-table">
+                <thead>
+                    <tr>
+                        <th class="col-2">{{ label.titulo | translate }}</th>
+                        <th class="col-1">{{ label.inicio | translate }}</th>
+                        <th class="col-1">{{ label.fim | translate }}</th>
+                        <th class="col-1">{{ label.legenda | translate }}</th>
+                        <th class="col-5">{{ label.descricao | translate }}</th>
+                        <th class="col-2"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let event of events">
+                        <td class="col-2">{{ event.title }}</td>
+                        <td class="col-1">{{ event.startTime | date: 'HH:mm' }}</td>
+                        <td class="col-1">{{ event.endTime | date: 'HH:mm' }}</td>
+                        <td class="col-1" [style.background]="event.caption.color"></td>
+                        <td *ngIf="sessionIdEdit != event.id" class="col-5">{{ event.description }}</td>
+                        <td *ngIf="sessionIdEdit == event.id" class="col-5">
+                            <input type="text" class="form-control" [(ngModel)]="event.description" />
+                        </td>
+                        <td class="col-2 text-center">
+                            <button mat-icon-button *ngIf="sessionIdEdit != event.id && (memberSchedule?.memberType?.toString() != 'VIEWER' || isCreator)" 
+                                color="primary" (click)="edit(event)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            <button mat-icon-button *ngIf="sessionIdEdit != event.id && (memberSchedule?.memberType?.toString() == 'EDITOR' || isCreator)" 
+                                color="warn" (click)="deleted(event)">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                            <button *ngIf="sessionIdEdit == event.id" mat-icon-button color="warn" 
+                                (click)="editDescription(event)">
+                                <mat-icon>save</mat-icon>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>

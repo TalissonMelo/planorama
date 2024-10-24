@@ -1,13 +1,12 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Home } from 'src/app/components/home/domain/home';
+import { HomeFreeTimes } from 'src/app/components/home/domain/home_free_times';
 import { UseSession } from 'src/app/util/useSession';
 import { environment } from 'src/environments/environment';
 import { ScheduleRequest } from '../domain/schedule_request';
 import { ScheduleResponse } from '../domain/schedule_response';
-import { Home } from 'src/app/components/home/domain/home';
-import { HomeFreeTimes } from 'src/app/components/home/domain/home_free_times';
-import { UserPermissions } from '../domain/user_permissions';
 
 @Injectable({
   providedIn: 'root',

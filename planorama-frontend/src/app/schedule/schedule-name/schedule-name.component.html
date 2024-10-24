@@ -3,7 +3,6 @@
         <mat-icon>arrow_back</mat-icon> {{ label.voltar | translate}}
     </div>
     <h2>{{ label.agenda | translate}}</h2>
-    <!-- *ngIf="userPermissions && userPermissions.isValid()"  -->
     <div class="form-container">
         <div class="form-group row">
             <div class="row">
@@ -61,16 +60,13 @@
                         <button mat-icon-button color="primary" (click)="listSessionsByScheduleId(schedule)">
                             <mat-icon>visibility</mat-icon>
                         </button>
-                        <!-- *ngIf="schedule.ownerId === userId" -->
-                        <button mat-icon-button color="accent" (click)="listMembersByScheduleId(schedule)">
+                        <button *ngIf="schedule.ownerId === userId" mat-icon-button color="accent" (click)="listMembersByScheduleId(schedule)">
                             <mat-icon>group</mat-icon>
                         </button>
-                        <!-- *ngIf="schedule.ownerId === userId" -->
-                        <button mat-icon-button color="primary" (click)="edit(schedule.id)">
+                        <button *ngIf="schedule.ownerId === userId" mat-icon-button color="primary" (click)="edit(schedule.id)">
                             <mat-icon>edit</mat-icon>
                         </button>
-                        <!-- *ngIf="schedule.ownerId === userId"  -->
-                        <button mat-icon-button color="warn" (click)="deleted(schedule)">
+                        <button *ngIf="schedule.ownerId === userId" mat-icon-button color="warn" (click)="deleted(schedule)">
                             <mat-icon>delete</mat-icon>
                         </button>
                     </td>

@@ -1,13 +1,16 @@
+import { Captions } from './captions';
+
 export class SessionRequest {
   public scheduleId!: string;
-  public legendId!: string;
+  public caption: Captions = new Captions();
+  public patient!: any;
   public title!: string;
+  public startTime!: string;
+  public endTime!: string;
   public description!: string;
-  public startDate!: Date;
-  public startTime!: Date;
-  public endDate!: Date;
-  public endTime!: Date;
   public daysOfWeeks: DayOfWeek[] = [];
+  public startDate!: Date;
+  public endDate!: Date;
 }
 
 enum DayOfWeek {
