@@ -1,0 +1,72 @@
+name: Continuous Integration with Github Actions
+
+on:
+  push:
+    branches:
+      - develop
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@v2.0.0
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        repository: ${{ secrets.DOCKER_USERNAME }}/liberbox
+        tags: ${{ github.sha }}, latest
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+
+    - name: Tag, and push image to Amazon ECR
+      env:
+        USE_PROFILE:  ${{ secrets.USE_PROFILE }
+        DB_HOST:  ${{ secrets.DB_HOST }
+        DB_USERNAME:  ${{ secrets.DB_USERNAME }
+        DB_PASSWORD:  ${{ secrets.DB_PASSWORD }
+      run: |
+        # Exportar as variáveis de ambiente para que estejam disponíveis para os comandos Docker
+        export USE_PROFILE=${USE_PROFILE}
+        export DB_HOST=${DB_HOST}
+        export DB_USERNAME=${DB_USERNAME}
+        export DB_PASSWORD=${DB_PASSWORD}
+
+        # Tag e push da imagem Docker
+        docker tag ${{ secrets.DOCKER_USERNAME }}/liberbox:latest ${{ secrets.IMAGE_REPO_URL }}:${{ github.run_id }}
+        docker tag ${{ secrets.DOCKER_USERNAME }}/liberbox:latest ${{ secrets.IMAGE_REPO_URL }}:latest
+
+        docker push ${{ secrets.IMAGE_REPO_URL }}:${{ github.run_id }}
+        docker push ${{ secrets.IMAGE_REPO_URL }}:latest
+    
+
+    - name: Download task definition
+      run: |
+        aws ecs describe-task-definition --task-definition ${{ secrets.TASK_DEFINITION_NAME }} --query taskDefinition > task-definition.json
+
+    - name: Fill in the new image ID in the Amazon ECS task definition
+      id: task-def
+      uses: aws-actions/amazon-ecs-render-task-definition@v1
+      with:
+        task-definition: task-definition.json
+        container-name: ${{ secrets.CONTAINER_NAME }}
+        image: ${{ secrets.IMAGE_REPO_URL }}:latest
+
+    - name: Deploy Amazon ECS task definition
+      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+      with:
+        task-definition: ${{ steps.task-def.outputs.task-definition }}
+        service: ${{ secrets.SERVICE_NAME }}
+        cluster: ${{ secrets.CLUSTER_NAME }}
+        wait-for-service-stability: true
