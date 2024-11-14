@@ -20,6 +20,14 @@ public class PlanoramaCdkApp {
         infraTags.put("team", "Planorama");
         infraTags.put("cost", "DevelopmentAndDevOps");
 
+
+        //CREATED VPC
+        VpcStack vpcStack = new VpcStack(app, "VPC", StackProps.builder()
+                .env(environment)
+                .tags(infraTags)
+                .build());
+
+        //CREATED ECR
         EcrStack ecrStack = new EcrStack(app, "ECR", StackProps.builder()
                 .env(environment)
                 .tags(infraTags)
@@ -27,6 +35,8 @@ public class PlanoramaCdkApp {
 
 
         //ecrStack.getPlanoramaBackendRepository();
+
+
 
         app.synth();
     }
